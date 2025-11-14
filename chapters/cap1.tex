@@ -50,11 +50,34 @@ Alcuni dei software che l'azienda ha prodotto sono:
 \begin{itemize}
     \item \textbf{Sobereye} (ambito web): un'applicazione innovativa progettata a monitorare il rischio di deterioramento neuro-cognitivo dovuto a stanchezza, malori, alcol o stupefacenti all'interno dell'ambiente lavorativo.
     \item \textbf{SynClinic} (ambito sanitario): un sistema integrato che supporta la gestione completa dei processi clinici e amministrativi di ospedali, cliniche e case di cura, consentendo di organizza e monitorare tutte le fasi del percorso di cura del paziente.
-    \item \textbf{DPS 4.0} (ambito privacy): una piattaforma web che supporta i titolari, responsabili, data protection officer (DPO) nelle attività di conformità del Regolamento Generale Protezione Dati (GPDR) nel rispetto del principio di \textit{accountability}.
+    \item \textbf{DPS 4.0} (ambito web e privacy): una piattaforma web che supporta i titolari, responsabili, data protection officer (DPO) nelle attività di conformità del Regolamento Generale Protezione Dati (GPDR) nel rispetto del principio di \textit{accountability}.
     \item \textbf{Fast Ride} (ambito trasporti): una soluzione per la gestione di servizi di trasporto pubblico a chiamata in contesti urbani ed extraurbani, pensata per integrare le linee tradizionali con un sistema flessibile, dinamico ed ecocompatibile.
 \end{itemize}
 
 \section{Way of working}
+In questa sezione tratterò di alcune tecnologie di cui ho avuto esperienza diretta per lo sviluppo dell'applicazione.
 \subsection{Tecnologie interne}
+L'azienda utilizza una vasta gamma di tecnologie che includono linguaggi di programmazione e \textit{framework} all'avanguardia. 
+Per la mia esperienza e lo sviluppo di un applicazione mobile abbiamo utilizzato:
+\begin{itemize}
+    \item \textbf{Dart}: un linguaggio di programmazione orientato agli oggetti sviluppato da Google noto per la sua versabilità. Offre numerosi vantaggi come:
+        \begin{itemize}
+            \item lo sviluppo di un applicativo \textit{cross-platform} che consente di creare applicazioni native per diversi sistemi da un'unica codebase.
+            \item compilazione \textit{Ahead-Of-Time (AOT)} che accelerano lo sviluppo.
+            \item supporto alla programmazione asincrona che riduce la gestione dei processi in background.
+        \end{itemize}
+    \item \textbf{Flutter}: un \textit{framework} basato su Dart per lo sviluppo di applicazioni multi-piattaforma, che offre vantaggi come:
+        \begin{itemize}
+            \item \textbf{Hot-reload}: che ci permette di visualizzare immediatamente le modifiche al codice durante lo sviluppo senza dover aspettare una nuova compilazione.
+            \item \textbf{Compatibilità con material}: ci mette a disposizione un ricco arsenale di widget per creare interfacce utente moderne e accattivanti senza dover scrivere molte righe di codice.
+        \end{itemize}
+    \item \textbf{Firebase}: un database sviluppato da google e ben integrato con flutter che offre una serie di funzionalità di \textit{backend} pronte all'uso per la propria applicazione.
+        \begin{itemize}
+            \item \textbf{Authentication}: servizio che offre i servizi di backend e librerie pronte all'uso per autenticare gli utenti nell'applicazione in molteplici modi.
+            \item \textbf{Firestore}: un database \textit{NoSQL} orientato ai documenti, che permette di archiviare i documenti in raccolte, che fungono da contenitori
+            per organizzare i dati e facilitare le interrogazioni.
+        \end{itemize}
+\end{itemize}
+
 \subsection{Smart working e strumenti di comunicazione}
 \section{Spirito di innovazione aziendale}
