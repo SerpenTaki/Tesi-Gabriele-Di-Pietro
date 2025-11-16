@@ -1,0 +1,95 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" border="50" scale="3" compressed="false" locked="false" version="29.0.3" pages="2">
+  <diagram name="Blank" id="YmL12bMKpDGza6XwsDPr">
+    <mxGraphModel dx="678" dy="504" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="1" shadow="0">
+      <root>
+        <mxCell id="X5NqExCQtvZxIxQ7pmgY-0" />
+        <mxCell id="1" parent="X5NqExCQtvZxIxQ7pmgY-0" />
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-8" value="Applicazione" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="201" y="87" width="444" height="349" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-1" value="Dart" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="359" y="38" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-2" value="Flutter" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://docs.flutter.dev/assets/images/flutter-logo-sharing.png;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="195.5" y="44" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-4" value="Firebase" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://images.seeklogo.com/logo-png/61/1/firebase-icon-logo-png_seeklogo-615938.png;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="195.5" y="167" width="64" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-7" value="Firestore" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="347" y="270" width="82" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-5" value="Authentication" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="27" y="270" width="82" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-12" value="Usa" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="279" y="38" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-14" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.99;exitY=0.408;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=4;" edge="1" parent="CIx-og4dhrm1YvqNuN8g-8" source="CIx-og4dhrm1YvqNuN8g-2" target="CIx-og4dhrm1YvqNuN8g-1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="189" y="388" as="sourcePoint" />
+            <mxPoint x="289" y="388" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;curved=1;strokeWidth=4;" edge="1" parent="CIx-og4dhrm1YvqNuN8g-8" source="CIx-og4dhrm1YvqNuN8g-2" target="CIx-og4dhrm1YvqNuN8g-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="193" y="253" as="sourcePoint" />
+            <mxPoint x="243" y="203" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="126" y="76" />
+              <mxPoint x="126" y="199" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-16" value="Interagisce" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="60" y="122" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-17" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=1;strokeWidth=4;" edge="1" parent="CIx-og4dhrm1YvqNuN8g-8" source="CIx-og4dhrm1YvqNuN8g-4" target="CIx-og4dhrm1YvqNuN8g-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="193" y="253" as="sourcePoint" />
+            <mxPoint x="243" y="203" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;curved=1;strokeWidth=4;" edge="1" parent="CIx-og4dhrm1YvqNuN8g-8" source="CIx-og4dhrm1YvqNuN8g-4" target="CIx-og4dhrm1YvqNuN8g-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="193" y="253" as="sourcePoint" />
+            <mxPoint x="243" y="203" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="195" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-19" value="Autenticazione" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="135.5" y="300" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="CIx-og4dhrm1YvqNuN8g-20" value="Wallet, conversazioni" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="CIx-og4dhrm1YvqNuN8g-8">
+          <mxGeometry x="259.5" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="JJKR7YlLbsr9-yig48dw" name="supporto">
+    <mxGraphModel dx="1186" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aC5FSBrIAj4oyrExvpno-1" value="Strumenti di supporto" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="100" width="470" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="aC5FSBrIAj4oyrExvpno-2" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Android_Studio_Logo_%282023%29.svg/2048px-Android_Studio_Logo_%282023%29.svg.png;" vertex="1" parent="aC5FSBrIAj4oyrExvpno-1">
+          <mxGeometry x="20" y="60" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aC5FSBrIAj4oyrExvpno-3" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://upload.wikimedia.org/wikipedia/it/7/7b/Icona_Xcode.png;" vertex="1" parent="aC5FSBrIAj4oyrExvpno-1">
+          <mxGeometry x="130" y="60" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aC5FSBrIAj4oyrExvpno-4" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png;" vertex="1" parent="aC5FSBrIAj4oyrExvpno-1">
+          <mxGeometry x="240" y="60" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aC5FSBrIAj4oyrExvpno-5" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://dashboard.snapcraft.io/site_media/appmedia/2022/04/umlet_logo.png;" vertex="1" parent="aC5FSBrIAj4oyrExvpno-1">
+          <mxGeometry x="350" y="60" width="100" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
