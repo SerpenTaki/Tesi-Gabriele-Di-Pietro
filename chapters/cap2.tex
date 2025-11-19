@@ -71,11 +71,35 @@ L'applicazione deve supportare l'utilizzo del lettore NFC presente sui dispositi
 
 \section{Obiettivi e vincoli}
 \subsection{Obiettivi}
-
-
+Il progetto proposto è stato guidato da una serie di obiettivi volti al fine di garantirne il successo e la produzione di risultati concreti. In particolare gli obiettivi specifici del progetto sono: lo \textbf{studio di fattibilità} e un successivo \textbf{sviluppo di una applicazione} da eseguire almeno sui dispositivi \textit{Android}.
+\newline
+\newline
+\textbf{Studio di fattibilità}: effettuare uno studio dettagliato e un’analisi approfondita sulla fattibilità tecnica sull’utilizzo di Flutter e delle sue librerie per la realizzazione di un applicazione funzionante. In particolare uno studio concentrato su:
+\begin{itemize}
+    \item l'integrazione con il \textit{server Firebase};
+    \item il funzionamento del lettore NFC;
+    \item la generazione di una coppia di chiavi (pubblica e privata) crittografiche;
+\end{itemize}
+Questo per permettere di valutare le potenzialità e i limiti degli strumenti, in modo da individuare i migliori da utilizzare per lo sviluppo dell’applicazione.
+\newline
+\newline
+\textbf{Sviluppo di una applicazione}: per verificare che i componenti applicativi funzionino bene tra di loro, e che permetta di associare i documenti scansionati con le coppie di chiavi generate direttamente dall’applicazione.
 \subsection{Vincoli}
-
-
+Nella realizzazione di un progetto è fondamentale considerare i vincoli ovvero delle restrizioni e limitazioni che devono essere considerate per garantire il successo del progetto.
+Questi ultimi infatti incidono in modo incisivo sulle scelte architetturali da prendere in considerazione durante la progettazione.
+\begin{itemize}
+    \item \textbf{Vincoli tecnologici}:
+        \begin{itemize}
+            \item \textbf{Utilizzo obbligatorio del \textit{framework Flutter}:} \\ L’intera applicazione deve essere sviluppata interamente tramite  \textit{Flutter}, che comporta l’utilizzo del linguaggio \textit{Dart} per tutta l’implementazione della logica applicativa. Questo rappresenta un vincolo rilevante poiché rispetto ad altri linguaggi come Java la comunità di sviluppatori è più contenuta. Di conseguenza, la disponibilità di pacchetti e librerie potrebbe risultare limitata o acerba, specialmente per funzionalità specifiche.
+            \item \textbf{Utilizzo del piano gratuito di \textit{Firebase}:} \\ L’uso di \textit{Firebase} presenta alcune limitazioni derivanti dal piano gratuito, che esclude funzionalità specifiche presenti solo nelle versioni a pagamento. Queste restrizioni incidono sulla progettazione di alcune componenti e sulle scelte implementate.
+        \end{itemize}
+    \item \textbf{Vincoli architettura di sicurezza}:
+        \begin{itemize}
+            \item \textbf{Protezione della chiave privata:} \\ L’architettura deve impedire la trasmissione \textit{online} della chiave privata, garantendo però un meccanismo sicuro che consenta all’utente di recuperare il proprio \textit{wallet} che in caso di smarrimento o migrazione su un nuovo \textit{smartphone}.
+            \item \textbf{Associazione delle chiavi ai documenti:} \\ Ogni coppia di chiavi deve essere associata a un documento, e non a tag \textit{NFC} generici.
+            \item \textbf{Unicità del \textit{wallet} per documento e \textit{account}:} \\ Non deve essere consentita la creazione di più \textit{wallet} associati allo stesso documento per un medesimo \textit{account}. Preservando l’unicità della coppia di chiavi per ogni documento, evitando di generare più \textit{wallet} per lo stesso documento, compromettendo la coerenza del sistema.
+        \end{itemize}
+\end{itemize}
 
 \section{Scelta dello \textit{stage}}
 \subsection{Motivazioni della scelta}
