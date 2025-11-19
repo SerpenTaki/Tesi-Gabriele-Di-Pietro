@@ -60,6 +60,7 @@ Per questo motivo, lo stage ha previsto lo studio e la valutazione del \textit{f
     \centering
     \includegraphics[width=0.8\textwidth]{../assets/codebaseUnica.png} 
     \caption{Confronto tra lo sviluppo nativo e l'approccio \textit{cross-platform} con \textit{Flutter}}
+    \label{fig:nativovscross}
 \end{figure}
 
 \section{Progetto proposto}
@@ -74,10 +75,20 @@ La realizzazione del progetto ha comportato l'identificazione e la risoluzione d
  L’applicazione deve essere sviluppata interamente tramite il \textit{framework} Flutter, e deve poter girare su dispositivi diversi con architetture diverse, sia \textit{Android} che \textit{iOS} a partire da un unica base di codice in modo tale che sia mantenibile senza l’impiego di numerose risorse. Questo richiede uno studio approfondito del \textit{framework} e del linguaggio di programmazione Dart, che potrebbe rappresentare un onere importante.
 \subsubsection*{Algoritmi di crittografia}
 Sviluppare un applicazione che permetta di verificare che gli algoritmi di crittografia vengano impiegati correttamente in modo tale che i messaggi inseriti nell’applicazione vengano letti solo da interessati e non da esterni. Questo richiede uno stratagemma oppure lo sviluppo di qualcosa che consenta allo \textit{stakeholders} di vedere come i messaggi vengano criptati e decriptati.
+
 \subsubsection*{Gestione delle chiavi crittografiche} 
 Il recupero della chiave privata usata per decifrare un messaggio rappresenta una grossa sfida in quanto l’applicazione deve poter generare più chiavi crittografiche e sopratutto l’applicazione deve supportare il passaggio dati da un dispositivo ad un altro nuovo in caso di smarrimento. Quindi ci deve essere una base di dati che consenta il recupero di informazioni sul dispositivo, ma alcune di queste informazioni devono essere trasmesse in modo differente. 
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../assets/cap2crittografia.png} 
+    \caption{Esempio di comunicazione criptata}
+\end{figure}
+
 \subsubsection*{Integrazione con il lettore NFC}
 L'applicazione deve supportare l'utilizzo del lettore NFC presente sui dispositivi mobili in modo da associare i documenti con chip RFID validi alle chiavi salvate sul dispositivo. Quindi bisogna capire che dati si possono prendere dai documenti tramite l'utilizzo di librerie Flutter/Dart e come poterle integrare nell'applicazione.
+
+\newpage
 
 \section{Obiettivi e vincoli}
 \subsection{Obiettivi}
@@ -94,6 +105,8 @@ Questo per permettere di valutare le potenzialità e i limiti degli strumenti, i
 \newline
 \newline
 \textbf{Sviluppo di una applicazione}: per verificare che i componenti applicativi funzionino bene tra di loro, e che permetta di associare i documenti scansionati con le coppie di chiavi generate direttamente dall’applicazione.
+\newline
+\newline
 \subsection{Vincoli}
 Nella realizzazione di un progetto è fondamentale considerare i vincoli ovvero delle restrizioni e limitazioni che devono essere considerate per garantire il successo del progetto.
 Questi ultimi infatti incidono in modo incisivo sulle scelte architetturali da prendere in considerazione durante la progettazione.
@@ -110,6 +123,12 @@ Questi ultimi infatti incidono in modo incisivo sulle scelte architetturali da p
             \item \textbf{Unicità del \textit{wallet} per documento e \textit{account}:} \\ Non deve essere consentita la creazione di più \textit{wallet} associati allo stesso documento per un medesimo \textit{account}. Preservando l’unicità della coppia di chiavi per ogni documento, evitando di generare più \textit{wallet} per lo stesso documento, compromettendo la coerenza del sistema.
         \end{itemize}
 \end{itemize}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../assets/dualitàChiavi.png} 
+    \caption{Schema che rappresenta l'architettura di sistema, la chiave blu corrisponde alla chiave pubblica, quella rossa invece corrisponde alla chiave privata }
+\end{figure}
 
 \section{Scelta dello \textit{stage}}
 \subsection{Motivazioni della scelta}
