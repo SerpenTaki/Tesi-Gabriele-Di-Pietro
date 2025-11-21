@@ -6,12 +6,38 @@ Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazion
 
 \begin{table}[ht]
     \centering
-    \begin{tabular}{c|c|c}
-          & Settimane  \\
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
         \hline
-        a & b \\
+        \textbf{Attività} & \multicolumn{8}{|c|}{\textbf{Settimane}} & \textbf{Ore} \\
+        \hline
+         & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & \\
+        \hline
+        Ripasso costrutti di Java & X & & & & & & & & 5 \\
+        \hline
+        Studio di Dart & X & X & & & & & & & 30 \\
+        \hline
+        Studio di Flutter & & X & X & & & & & & 40 \\
+        \hline
+        Studio algoritmi di criptazione &  & X & & X & & X & & & 30 \\
+        \hline
+        Analisi del problema & X &  & & X & & & & & 10 \\
+        \hline
+        Progettazione della piattaforma &  &  &  & X & & & & & 25 \\
+        \hline
+        Sviluppo maschera di \textit{login} &  &  & X & & & & & & 5 \\
+        \hline
+        Sviluppo di un prototipo che genera chiavi &  &  & X & & & & & & 30 \\
+        \hline
+        Sviluppo applicazione finale &  &  & & & X & X & X & & 100 \\
+        \hline
+        Stesura finale della specifica tecnica &  &  & & &  & & X & X & 20 \\
+        \hline
+        \textit{Live demo} e presentazione finale &  &  & & & & & & X & 5 \\
+        \hline
+        \textbf{totale ore} & \multicolumn{9}{|c|}{300}\\
+        \hline
     \end{tabular}
-    \caption{Tab}
+    \caption{Pianificazione del lavoro durante le 8 settimane}
 \end{table}
 
 Durante le prime settimane di stage, è stata applicata una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Durante la prima settimana ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter per poi spostarmi sulla libreria di pointycastle e gli algoritmi di crittografia durante la prime due settimane di stage. Dalla terza settimana fino alla 4 mi sono concentrato sullo sviluppo di piccoli prototipi (es. login finto, generazione di chiavi alla pressione di un tasto e lettura di tag nfc). Questi prototipi sono stati molto utili per effettuare piccoli test sulle funzioni nelle settimane successive e a trovare falle sul progetto immediatamente una tra tutte la lettura di tag nfc. Difatti questi ultimi non possiedono un identificativo fisso sulle carte d’identità elettroniche ma cambia ogni secondo.
