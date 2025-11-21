@@ -1,0 +1,81 @@
+\chapter{Realizzazione dell'applicazione}
+\label{cap:Realizzazione dell'applicazione}
+Il presente capitolo introduce la realizzazione dell'applicazione \textit{Key Wallet App} descrivendo una fase di pianificazione e di analisi per poi proseguire verso i problemi riscontrati durante lo sviluppo, la loro mitigazione e le scelte che sono state intraprese e si conclude con un resoconto su ciò che è stato realizzato.
+\section{Pianificazione del lavoro}
+Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazione di fattibilità e di potenziale impiego nuove tecnologie per l’azienda in nuovi prodotti. Pertanto mi serviva trovare un compromesso che mi offrisse nella fase di studio rigidità e nella fase di sviluppo e implementazione flessibilità. Quindi per la realizzazione del progetto ho scelto un approccio ibrido tra un modello sequenziale a cascata durante lo studio e la pianificazione, mentre nella realizzazione dell’applicazione ho scelto un modello agile.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c|c}
+          & Settimane  \\
+        \hline
+        a & b \\
+    \end{tabular}
+    \caption{Tab}
+\end{table}
+
+Durante le prime settimane di stage, è stata applicata una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Durante la prima settimana ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter per poi spostarmi sulla libreria di pointycastle e gli algoritmi di crittografia durante la prime due settimane di stage. Dalla terza settimana fino alla 4 mi sono concentrato sullo sviluppo di piccoli prototipi (es. login finto, generazione di chiavi alla pressione di un tasto e lettura di tag nfc). Questi prototipi sono stati molto utili per effettuare piccoli test sulle funzioni nelle settimane successive e a trovare falle sul progetto immediatamente una tra tutte la lettura di tag nfc. Difatti questi ultimi non possiedono un identificativo fisso sulle carte d’identità elettroniche ma cambia ogni secondo.
+\newline
+\newline
+Una volta completata la fase di prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale. Lo sviluppo agile offre una gestione flessibile dei problemi tecnici, e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendomi di integrare funzionalità ad ogni iterazione. Questo significava che per le ultime fasi del progetto pianificavo, implementavo e testavo le funzionalità implementate. Permettendomi di reagire immediatamente ai problemi ritrovati, uno tra questi, l’uso di un algoritmo RSA senza padding.
+\newline
+\newline
+L’adozione quindi dell’approccio ibrido ha garantito la copertura formativa e analitica iniziale, consentendo al contempo la gestione flessibile e sicura delle complessità tecniche emerse durante la loro implementazione.
+
+
+\section{Analisi dei requisiti}
+(In questa sezione parlo della fase di analisi per comprendere le tecnologie da utilizzare, come strutturare l'applicazione, i mockup e lo studio delle tecnologie)
+
+\subsection{Requisiti funzionali}
+(discuto dei requisiti che riguardano l'utilizzabilità del prodotto finale)
+
+\subsection{Requisiti di qualità}
+(discuto degli strumenti e la documentazione da fornire)
+
+\subsection{Requisiti di vincolo}
+(discuto delle tecnologie da utilizzare per lo sviluppo dell'applicativo)
+
+\section{Implementazione}
+
+\subsection{Il linguaggio Dart e il framework Flutter}
+(In questa sezione illustro i vantaggi e le peculiarità del linguaggio di programmazione Dart e delle scelte architetturali intraprese per lo sviluppo dell'applicazione)
+
+\subsubsection{Il design pattern provider}
+(descrivo i vantaggi dell'utilizzo di questo design pattern)
+
+\subsubsection{Architettura a tre livelli}
+(descrivo la composizione di questa architettura)
+
+\subsection{la tecnologia NFC}
+(in questa sezione discuto di uno degli obiettivi aziendali imposti, ovvero la necessità di associare le chiavi crittografiche ai documenti d'identità)
+
+\subsubsection{Lettura dati nei chip RFID}
+(In questa sezione spiego come ho letto determinati dati dai chip RFID e parlo dei problemi riscontrati nel recuperare un dato univoco dalle carte d'identità, in quanto protette da determinati protocolli)
+
+\subsubsection{Mitigazione del problema}
+(In questa sezione spiego di come, discutendo con gli stakeholders, siamo riusciti a trovare un compromesso per far si che le chiavi venissero associate ai documenti)
+
+\subsection{Studio degli algoritmi di crittografia}
+(In questa sezione descrivo gli algoritmi di crittografia analizzati e scelti per la realizzazione dell'applicativo, in particolar modo dei vantaggi e svantaggi di ognuno)
+
+\subsubsection{Algoritmi a chiave simmetrica}
+\subsubsection{Algoritmi a chiave asimmetrica}
+
+\subsection{Firebase} (In questa sezione descrivo il database e la struttura dei dati del progetto)
+
+\subsection{Gestione sicura delle chiavi pubbliche e private}
+
+(In questa sezione descrivo uno dei punti critici del mio progetto ovvero come recuperare la chiave privata che non viene trasmessa online e il suo trasferimento su un nuovo dispositivo in caso di smarrimento)
+
+\subsection{Realizzazione di una chat \textit{end-to-end}}
+(In questa sezione discuto di come ho realizzato una chat utente per dimostrare come i messaggi inseriti nell'applicativo vengano criptati e decifrati per rispettare i requisiti, e i problemi riscontrati)
+
+\subsubsection{L'algoritmo RSA}
+\subsubsection{Problemi di RSA}
+\subsubsection{Mitigazione del problema tramite RSAOAEP}
+
+\section{Risultati Raggiunti}
+(in questa sezione parlo dei risultati e raggiunti, delle funzioni implementate nell'applicazione come ad esempio la ricerca, la conversazione, e come le chiavi sono state associate ai documenti)
+
+\subsection{Risultati quantitativi}
+\subsection{Risultati qualitativi}
