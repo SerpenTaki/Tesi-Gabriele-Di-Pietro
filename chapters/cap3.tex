@@ -6,7 +6,7 @@ Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazion
 
 \begin{table}[ht]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \begin{tabular}{|p{6cm}|c|c|c|c|c|c|c|c|c|}
         \hline
         \textbf{Attività} & \multicolumn{8}{|c|}{\textbf{Settimane}} & \textbf{Ore} \\
         \hline
@@ -20,7 +20,7 @@ Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazion
         \hline
         Studio algoritmi di criptazione &  & X & & X & & X & & & 30 \\
         \hline
-        Analisi del problema & X &  & & X & & & & & 10 \\
+        Analisi del problema & X &  & &  & & & & & 10 \\
         \hline
         Progettazione della piattaforma &  &  &  & X & & & & & 25 \\
         \hline
@@ -50,16 +50,86 @@ L’adozione quindi dell’approccio ibrido ha garantito la copertura formativa 
 
 
 \section{Analisi dei requisiti}
-(In questa sezione parlo della fase di analisi per comprendere le tecnologie da utilizzare, come strutturare l'applicazione, i mockup e lo studio delle tecnologie)
+La fase di analisi svolta durante le prime settimane del percorso di \textit{stage}, sono state cruciali per definire l’architettura applicativa e le tecnologie da utilizzare. Gli incontri con il \textit{tutor} hanno rappresentato un fulcro importante per lo sviluppo e la definizione del progetto. Le diverse iterazioni hanno permesso di delineare le linee guida e velocizzare le scelte tecnologiche, ad esempio l’uso di librerie specifiche come \texttt{pointycastle} per la crittografia o \texttt{flutter\_secure\_storage} per la gestione locale della chiave privata. A seguito di queste indicazione la fase di analisi è stata focalizzata sullo studio di fattibilità delle tecnologie e sullo sviluppo di piccoli prototipi. 
+
+\newpage
 
 \subsection{Requisiti funzionali}
-(discuto dei requisiti che riguardano l'utilizzabilità del prodotto finale)
+I requisiti funzionali definiscono le funzionalità e i servizi specifici che l’applicazione deve fornire per conseguire gli obiettivi del progetto.
+Ogni requisito funzionale è codificato in questo modo: \textbf{RF[Numero]}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Codice} & \textbf{Descrizione} \\
+        \hline
+        \textbf{RF1} & Generazione di una coppia di chiavi pubbliche e private\\
+        \hline
+        \textbf{RF2} & Generazione ed eliminazione di \textit{wallet} contenenti le coppie di chiavi\\
+        \hline
+        \textbf{RF3} & Implementazione della parte di accesso e registrazione tramite appoggio di \textit{database}\\
+        \hline
+        \textbf{RF4} & Implementazione di un meccanismo di storage sicuro che permetta agli utenti di salvare le chiavi private sul \textit{Keystore/Keychain} del dispositivo\\
+        \hline
+        \textbf{RF5} & Riuscire a criptare un messaggio inserito nell'applicazione tramite la chiave pubblica di un altro utente\\
+        \hline
+        \textbf{RF6} & Riuscire a decifrare un messaggio tramite la propria chiave privata personale\\
+        \hline
+        \textbf{RF7} & Implementazione di un meccanismo di recupero \textit{wallet} \\
+        \hline
+        \textbf{RF8} & Implementazione di un meccanismo di lettura di \textit{tag NFC} per associare un documento a un \textit{wallet}\\
+        \hline
+    \end{tabular}
+    \caption{Requisiti funzionali}
+\end{table}
 
 \subsection{Requisiti di qualità}
-(discuto degli strumenti e la documentazione da fornire)
+I requisiti di qualità stabiliscono degli \textit{standard} secondo cui tali funzionalità del prodotto devono essere realizzate ed eseguite, assicurando un elevato livello di affidabilità e coerenza del sistema.  Quest’ultimi sono stati definiti all’inizio del percorso di \textit{stage} e sono stati misurati alla fine come criteri per la valutazione del progetto.
+Ogni requisito di qualità è codificato in questo modo: \textbf{RQ[Numero]}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Codice} & \textbf{Descrizione} \\
+        \hline
+        \textbf{RQ1} & Assicurare un'accuratezza nella generazione e crittografia delle chiavi superiore al 95\% \\
+        \hline
+        \textbf{RQ2} & Mantenere il tempo di risposta per la generazione del \textit{wallet} al di sotto dei 2 secondi\\
+        \hline
+        \textbf{RQ3} & Raggiungere una copertura di test automatici del 70\% per le principali funzionalità\\
+        \hline
+    \end{tabular}
+    \caption{Requisiti di qualità}
+\end{table}
+
+Ognuno di questi requisiti è stato verificato attraverso lo sviluppo di test automatici.
+
 
 \subsection{Requisiti di vincolo}
-(discuto delle tecnologie da utilizzare per lo sviluppo dell'applicativo)
+I requisiti di vincolo definiscono le limitazioni operative e tecnologiche cui il progetto ha dovuto attenersi, influenzando direttamente le scelte architetturali e l'ambito di sviluppo. 
+Abbiamo già discusso dei vincoli del progetto nella sezione 2.4.2 Pertanto mi limito ad elencarli in questa sezione.
+Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Codice} & \textbf{Descrizione} \\
+        \hline
+        \textbf{RV1} & L'applicazione finale deve essere sviluppata tramite il \textit{framework} Flutter e il linguaggio Dart\\
+        \hline
+        \textbf{RV2} & L'applicazione finale deve appoggiarsi a Firebase come appoggio per una base di dati \\
+        \hline
+        \textbf{RV3} & Le chiavi private generate non devono essere trasmesse \textit{online} ma devono essere cutodite in spazi sicuri del dispositivo come il \textit{Keychain} e \textit{Keystore}\\
+        \hline
+        \textbf{RV4} & Ogni documento deve essere associato a unico wallet\\
+        \hline
+    \end{tabular}
+    \caption{Requisiti di vincolo}
+\end{table}
+
 
 \section{Implementazione}
 
