@@ -43,7 +43,7 @@ Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazion
 Durante le prime settimane di stage, è stata applicata una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Durante la prima settimana ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter per poi spostarmi sulla libreria di pointycastle e gli algoritmi di crittografia durante la prime due settimane di stage. Dalla terza settimana fino alla 4 mi sono concentrato sullo sviluppo di piccoli prototipi (es. login finto, generazione di chiavi alla pressione di un tasto e lettura di tag nfc). Questi prototipi sono stati molto utili per effettuare piccoli test sulle funzioni nelle settimane successive e a trovare falle sul progetto immediatamente una tra tutte la lettura di tag nfc. Difatti questi ultimi non possiedono un identificativo fisso sulle carte d’identità elettroniche ma cambia ogni secondo.
 \newline
 \newline
-Una volta completata la fase di prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale. Lo sviluppo agile offre una gestione flessibile dei problemi tecnici, e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendomi di integrare funzionalità ad ogni iterazione. Questo significava che per le ultime fasi del progetto pianificavo, implementavo e testavo le funzionalità implementate. Permettendomi di reagire immediatamente ai problemi ritrovati, uno tra questi, l’uso di un algoritmo RSA senza padding.
+Una volta completata la prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale. Lo sviluppo agile offre una gestione flessibile dei problemi tecnici, e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendomi di integrare funzionalità ad ogni iterazione. Questo significava che per le ultime fasi del progetto pianificavo, implementavo e testavo le funzionalità implementate. Permettendomi di reagire immediatamente ai problemi ritrovati, uno tra questi, l’uso di un algoritmo RSA senza padding.
 \newline
 \newline
 L’adozione quindi dell’approccio ibrido ha garantito la copertura formativa e analitica iniziale, consentendo al contempo la gestione flessibile e sicura delle complessità tecniche emerse durante la loro implementazione.
@@ -132,15 +132,100 @@ Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
 
 \section{Implementazione}
+\subsection{Il linguaggio Dart}
+Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Google nel 2011, concepito come alternativa a JavaScript per lo sviluppo \textit{web}. Sebbene questo obiettivo non abbia trovato ampia adozione, Dart si è affermato come linguaggio versatile ed efficace nello sviluppo di applicazioni multipiattaforma. Una delle sue caratteristiche è quella di essere compilato verso diversi \textit{target}: ARM64 per i dispositivi mobili, JavaScript per il \textit{web}, e architetture x86\_64 per i sistemi operativi \textit{desktop} quali Windows, macOS e Linux. 
+\subsubsection*{\textit{Type-safe}}
+Dart è un linguaggio \textit{type-safe}: ovvero ogni variabile mantiene una corrispondenza certa con il proprio tipo statico. Però allo stesso tempo offre un sistema di tipizzazione flessibile grazie alla \textit{keyword} \texttt{dynamic}, che permette la verifica dei tipi a \textit{run-time} quando necessario.
 
-\subsection{Il linguaggio Dart e il framework Flutter}
-(In questa sezione illustro i vantaggi e le peculiarità del linguaggio di programmazione Dart e delle scelte architetturali intraprese per lo sviluppo dell'applicazione)
+\begin{listing}[h!]
+\caption{Esempio di \textit{type-safe}}
+\begin{minted}{dart}
+void main() {
+  int temp = 10;
+  temp = 20; // OK
+  //temp = "ciao"; // ILLEGALE -> string != int
 
-\subsubsection{Il design pattern provider}
-(descrivo i vantaggi dell'utilizzo di questo design pattern)
+  print(temp); // stampa 20
+  
+  dynamic temp1 = 30;
+  print(temp1); // stampa 30
+  temp1 = "ciao";
+  print(temp1); // stampa ciao
+}
+\end{minted}
+\end{listing}
 
-\subsubsection{Architettura a tre livelli}
+\subsubsection*{\textit{null-safe}}
+Il linguaggio integra un sistema di \textit{null safety}: il valore \texttt{null} può essere associato a una variabile solo se esplicitamente dichiarato.
+
+\begin{listing}[h!]
+\caption{Esempio di \textit{null safety}}
+\begin{minted}{dart}
+void main() {
+  String nome = "Mario";
+  print(nome); // stampa: Mario
+  //nome = null; //Errore null non può essere assegnato a String
+
+  String? cognome = "Rossi";
+  cognome = null;
+  print(cognome); //Nessun problema stampa null
+}
+
+\end{minted}
+\end{listing}
+
+\subsubsection*{Interfacce e classi astratte}
+In Dart sia le interfacce esplicite che le classi astratte sono dichiarate usando la \textit{keyword} \texttt{abstract class}.
+La distinzione dei due concetti risiede nel modo in cui vengono utilizzate le classi derivate:
+
+Un’interfaccia definisce un contratto: qualsiasi classe che la derivi deve utilizzare la \textit{keyword} \texttt{implements}, impegnandosi pertanto a fornire una implementazione concreta di tutti i metodi dichiarati.
+ Al contempo, una classe astratta può essere estesa tramite la \textit{keyword} \texttt{extends} e può contenere sia i metodi astratti sia metodi già implementati. 
+
+\begin{listing}[h!]
+\caption{Esempio di interfaccia e classe astratta}
+\begin{minted}{dart}
+abstract class ContrattoDiConnessione { 
+  void connetti();
+  void disconetti();
+}
+
+class B{
+    void bMethod() {}
+}
+
+abstract class BaseScreen {
+  void logicaComune() {}
+}
+
+class GestoreServizio implements ContrattoDiConnessione, B {
+  @override
+  void connetti() { /* implementazione */ }
+  @override
+  void disconetti() { /* implementazione */ }
+  @override
+  void bMethod() {/* implementazione */}
+}
+
+class HomePage extends BaseScreen { 
+  void init() {
+    super.logicaComune();
+  }
+}
+\end{minted}
+\end{listing}
+In Dart, ogni classe definita genera implicitamente un'interfaccia che include tutti i suoi metodi e proprietà pubbliche.
+
+\newpage
+
+\subsection{Il \textit{framework} Flutter}
+
+\subsubsection{\textit{Stateful} e \textit{stateless widget}}
+
+\subsection{Architettura a tre livelli}
 (descrivo la composizione di questa architettura)
+
+\subsubsection{Il \textit{design pattern provider}}
+(descrivo i vantaggi dell'utilizzo di questo design pattern)
 
 \subsection{la tecnologia NFC}
 (in questa sezione discuto di uno degli obiettivi aziendali imposti, ovvero la necessità di associare le chiavi crittografiche ai documenti d'identità)
