@@ -132,12 +132,15 @@ Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
 
 \section{Implementazione}
-\subsection{Il linguaggio Dart}
-Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Google nel 2011, concepito come alternativa a JavaScript per lo sviluppo \textit{web}. Sebbene questo obiettivo non abbia trovato ampia adozione, Dart si è affermato come linguaggio versatile ed efficace nello sviluppo di applicazioni multipiattaforma. Una delle sue caratteristiche è quella di essere compilato verso diversi \textit{target}: ARM64 per i dispositivi mobili, JavaScript per il \textit{web}, e architetture x86\_64 per i sistemi operativi \textit{desktop} quali Windows, macOS e Linux. 
+\subsection{Il linguaggio Dart e il \textit{framework} Flutter}
+Lo studio di questo linguaggio di programmazione ha rappresentato la prima sfida del progetto, in quanto sarebbe stata la base da cui partire per costruire l’intera applicazione. Personalmente non avevo mai visto ne provato questo linguaggio tuttavia la sua sintassi simile a Java e JavaScript hanno fortemente semplificato il suo apprendimento. Riporto di seguito le principali differenze e peculiarità che secondo me sono importanti da sottolineare in quanto caratteristiche fondamentali del linguaggio:
+\newline
+\newline
+Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Google, è stato concepito come alternativa a JavaScript per lo sviluppo \textit{web}. Sebbene questo obiettivo non abbia trovato ampia adozione, Dart si è affermato come linguaggio versatile ed efficace nello sviluppo di applicazioni multipiattaforma. Una delle sue caratteristiche è quella di essere compilato verso diversi \textit{target}: ARM64 per i dispositivi mobili, JavaScript per il \textit{web}, e architetture x86\_64 per i sistemi operativi \textit{desktop} quali Windows, macOS e Linux. 
 \subsubsection*{\textit{Type-safe}}
 Dart è un linguaggio \textit{type-safe}: ovvero ogni variabile mantiene una corrispondenza certa con il proprio tipo statico. Però allo stesso tempo offre un sistema di tipizzazione flessibile grazie alla \textit{keyword} \texttt{dynamic}, che permette la verifica dei tipi a \textit{run-time} quando necessario.
 
-\begin{listing}[h!]
+\begin{listing}[ht]
 \caption{Esempio di \textit{type-safe}}
 \begin{minted}{dart}
 void main() {
@@ -158,7 +161,7 @@ void main() {
 \subsubsection*{\textit{null-safe}}
 Il linguaggio integra un sistema di \textit{null safety}: il valore \texttt{null} può essere associato a una variabile solo se esplicitamente dichiarato.
 
-\begin{listing}[h!]
+\begin{listing}[ht]
 \caption{Esempio di \textit{null safety}}
 \begin{minted}{dart}
 void main() {
@@ -181,7 +184,7 @@ La distinzione dei due concetti risiede nel modo in cui vengono utilizzate le cl
 Un’interfaccia definisce un contratto: qualsiasi classe che la derivi deve utilizzare la \textit{keyword} \texttt{implements}, impegnandosi pertanto a fornire una implementazione concreta di tutti i metodi dichiarati.
  Al contempo, una classe astratta può essere estesa tramite la \textit{keyword} \texttt{extends} e può contenere sia i metodi astratti sia metodi già implementati. 
 
-\begin{listing}[h!]
+\begin{listing}[ht]
 \caption{Esempio di interfaccia e classe astratta}
 \begin{minted}{dart}
 abstract class ContrattoDiConnessione { 
@@ -217,15 +220,88 @@ In Dart, ogni classe definita genera implicitamente un'interfaccia che include t
 
 \newpage
 
-\subsection{Il \textit{framework} Flutter}
+\subsection*{Il \textit{framework} Flutter}
 
-\subsubsection{\textit{Stateful} e \textit{stateless widget}}
+La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non utilizza componenti di interfaccia nativi del sistema operativo ospite, ma al contrario sfrutta un suo motore grafico che disegna direttamente sulla schermata del dispositivo, garantendo un controllo totale sul \textit{rendering} dell’interfaccia e garantendo prestazioni comparabili a quelle delle applicazioni native. 
+Appoggiandosi sul linguaggio Dart, Flutter supporta funzioni specifiche che permettono ad un programmatore di velocizzare lo sviluppo. Una di queste funzioni è l'\textit{hot-reload} che permette di visualizzare immediatamente le modifiche al codice senza dover aspettare ogni volta una nuova compilazione.
+\newline
+\newline
+Per lavorare bene in Flutter è fondamentale comprendere che ogni elemento dell’interfaccia è rappresentato da un \textit{widget}. Il \textit{framework} adotta un approccio basato sulla composizione, tutto dagli elementi più semplici ai \textit{layout} più complessi è costruito tramite \textit{widget} annidati tra loro. Per fare un esempio banale una schermata tipica in Flutter è definita attraverso il \textit{widget} \texttt{Scaffold} che fornisce la struttura di base dell’interfaccia. Lo \texttt{Scaffold} accetta parametri come \texttt{appBar}, \texttt{body} e \texttt{floatingActionButton}. Questi parametri verranno a loro volta definiti tramite altri \textit{widget}. Bisogna tuttavia fare una distinzione importante tra i \textit{widget} senza stato \textit{(stateless)} e i \textit{widget} con stato \textit{(stateful)}.
+\subsubsection*{\textit{Stateless widget}}
+Uno \textit{stateless widget} è un \textit{widget} immutabile, ovvero un componente la cui configurazione non cambia durante l’intero ciclo di vita senza variare nel tempo.
+
+\begin{listing}[ht]
+\caption{\textit{Stateless Widget}}
+\begin{minted}{dart}
+class Titolo extends StatelessWidget {
+  final String testo;
+
+  const Titolo({super.key, required this.testo});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(testo);
+  }
+}
+
+\end{minted}
+\end{listing}
+
+\subsubsection*{\textit{Stateful widget}}
+Uno \textit{stateful widget} è un \textit{widget} mutabile, in grado di mantenere e aggiornare un suo stato interno. Questo stato è gestito da una classe chiamata \texttt{State} che  permette di modificare lo stato e aggiornare l’interfaccia. Quando lo stato cambia, Flutter chiama il metodo \texttt{setState()}, che a sua volta forza la ricostruzione del \textit{widget}.
+
+\begin{listing}[ht]
+  \caption{\textit{Stateful Widget}}
+  \begin{minted}{dart}
+class Contatore extends StatefulWidget {
+  const Contatore({super.key});
+
+  @override
+  State<Contatore> createState() => _ContatoreState();
+}
+
+class _ContatoreState extends State<Contatore> {
+  int valore = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Valore: $valore'),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              valore++;
+            });
+          },
+          child: Text('Incrementa'),
+        ),
+      ],
+    );
+  }
+}
+
+  \end{minted}
+\end{listing}
 
 \subsection{Architettura a tre livelli}
-(descrivo la composizione di questa architettura)
-
-\subsubsection{Il \textit{design pattern provider}}
-(descrivo i vantaggi dell'utilizzo di questo design pattern)
+L’applicazione sviluppata adotta il modello di architettura a tre livelli, una struttura che segmenta i componenti \textit{software} in strati logicamente distinti, ciascuno con responsabilità differenti e ben definite.
+\newline
+\newline
+Il primo livello di presentazione rappresenta un punto di interazione tra l’utente e il sistema. È composto da tutto ciò che definisce l’interfaccia grafica. Quindi le schermate e \textit{widget} che le compongono. La sua funzione è quella di presentare i dati in chiaro e raccogliere l’\textit{input} dell’utente.
+\newline
+\newline
+Il secondo livello rappresenta la logica di \textit{business}. Coordina le operazioni tra il livello di presentazione e il livello dei dati. Nel mio caso specifico è responsabile di operazioni fondamentali come la generazione delle chiavi crittografiche e l’esecuzione dei processi di cifratura e decifratura.
+\newline
+\newline
+Il terzo livello è responsabile della persistenza e recupero dei dati. Definisce come queste vengono archiviate e rese disponibili agli altri livelli.
+\subsection{Il \textit{design pattern provider}}
+Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato adottato il \textit{design pattern provider} che si allinea perfettamente alle esigenze di una architettura a tre livelli in quanto:
+\begin{enumerate}
+  \item Permette la separazione delle responsabilità (SoC\footnote{Separation of Concerns}) eliminando la necessità di propagare le informazioni tramite la gerarchia dei \textit{widget}.
+  \item Aumenta le \textit{performance} consentendoci di costruire i \textit{widget} strettamente necessari quando lo stato cambia, evitando i \textit{rebuild} di intere porzioni dell’interfaccia.
+  \item Fornisce un meccanismo per accedere e aggiornare lo stato rendendo il codice più facile da mantenere, facilitando quindi l’introduzione di funzionalità o la modifica di quelle esistenti.
+\end{enumerate}
 
 \subsection{la tecnologia NFC}
 (in questa sezione discuto di uno degli obiettivi aziendali imposti, ovvero la necessità di associare le chiavi crittografiche ai documenti d'identità)
