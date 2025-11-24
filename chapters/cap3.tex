@@ -146,7 +146,7 @@ Dart è un linguaggio \textit{type-safe}: ovvero ogni variabile mantiene una cor
 void main() {
   int temp = 10;
   temp = 20; // OK
-  //temp = "ciao"; // ILLEGALE -> string != int
+  //temp = "ciao"; // ILLEGALE: string != int
 
   print(temp); // stampa 20
   
@@ -167,7 +167,7 @@ Il linguaggio integra un sistema di \textit{null safety}: il valore \texttt{null
 void main() {
   String nome = "Mario";
   print(nome); // stampa: Mario
-  //nome = null; //Errore null non può essere assegnato a String
+  //nome = null; //ILLEGALE: null non può essere assegnato a String
 
   String? cognome = "Rossi";
   cognome = null;
@@ -304,11 +304,36 @@ Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato
 \end{enumerate}
 
 \subsection{la tecnologia NFC}
-(in questa sezione discuto di uno degli obiettivi aziendali imposti, ovvero la necessità di associare le chiavi crittografiche ai documenti d'identità)
+La tecnologia NFC permette a due dispositivi di connettersi, scambiarsi informazioni o attivare funzioni nel momento in cui si trovano a una distanza ravvicinata. Depositato da Charles Walton nel 1983 NFC nasce grazie all’intenzione di Sony e Philips di cooperare nella creazione di uno \textit{standard} per la comunicazione a radiofrequenza nel 2002, e L’ISO\footnote{International Standard Organization} lo approva solo nel 2003 come \textit{standard}. L’idea è quella di far integrare informazioni all’interno dei dispositivi mobili permettendo una facile iterazione tra documenti e telefoni. 
 
-\subsubsection{Lettura dati nei chip RFID}
-(In questa sezione spiego come ho letto determinati dati dai chip RFID e parlo dei problemi riscontrati nel recuperare un dato univoco dalle carte d'identità, in quanto protette da determinati protocolli)
+\subsubsection{Lettura dati nei \textit{chip} RFID}
+Uno dei requisiti era l’implementazione di un meccanismo di riconoscimento dei documenti contenenti il \textit{chip} RFID per associare le coppie di chiavi al ID del documento. In buona sostanza l’utente alla creazione del \textit{wallet}, avrebbe dovuto scansionare il documento.
+\newline
+\newline
+Per realizzare questo sono state analizzate due librerie Flutter che permettono la scansione e la scrittura attivando il sensore NFC presente sul telefono. La prima \texttt{nfc\_manager} alla versione 4.1.1 è stata scartata in quanto da poco tempo è passata a una \textit{major update} modificando tutti i nomi dei metodi e non viene aggiornata spesso, la seconda \texttt{flutter\_nfc\_kit} invece è stata la scelta definitiva in quanto include un supporto maggiore da parte degli sviluppatori e sta crescendo rapidamente. 
+\newline
+Grazie alla documentazione fornita dagli sviluppatori eseguire un prototipo che permetta la scansione dei documenti è stato facile.
 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../assets/PrototipoNFC.png} 
+    \caption{Applicazione prototipale per dimostrare la fattibilità della scansione NFC}
+\end{figure}
+
+La libreria ci permette di recuperare i campi di ID, lo \textit{standard} ISO del \textit{chip} RFID (ad esempio la carta d’identità elettronica utilizza uno \textit{standard} ISO 14443), e gli \textit{historical bytes}. Questi ultimi rappresentano una piccola sezione dati fornita dal \textit{chip} che identificano in modo informativo il \textit{chip}, il produttore o la versione.
+\newline 
+\newline
+Testando l’applicazione con una varietà di documenti e \textit{tag} NFC, ho riscontrato differenze significative nella struttura dei dati restituiti. Ad esempio, la tessera del \textit{tram} di Busitalia Veneto e quella di una palestra privata rispetto a documenti come la tessera sanitaria o il \textit{badge} universitario non forniscono né includono i campi relativi agli \textit{hystorical bytes}, evidenziando quindi come il comportamento e il livello di informazione dei \textit{tag} NFC vari sensibilmente in base allo \textit{standard} impiegato e al livello di sicurezza previsto dall’emittente.
+\newline
+Nel caso della CIE ho rilevato un comportamento peculiare: il campo identificativo (\texttt{id}) letto tramite NFC non rappresenta un identificatore univoco permanente ma bensì un valore temporaneo che cambia ad ogni scansione. Approfondendo la documentazione tecnica del \textit{chip} - disponibile sul sito del ministero dell’Interno - emerge che la CIE adotta modelli di sicurezza avanzati come il protocollo BAC\footnote{aggiungi} o il protocollo PACE\footnote{aggiungi} che limitano severamente la quantità di informazioni accessibili senza autenticazione. In particolare il numero unico nazionale (\texttt{nun}) che si trova in alto a destra sul fronte del documento.
+\newline
+\newline
+Il \textit{chip} della Carta d’Identità Digitale (CIE) è infatti progettato per memorizzare dati personali sensibili, proteggendole tramite una protocolli avanzati e non direttamente leggibili con una interrogazione NFC.
+\newline
+L’identificatore temporaneo e non persistente rientra nelle misure previste per ridurre i rischi legati al tracciamento e alla profilazione utente.
+\newline
+\newline
+Questo rappresenta per il progetto un bel problema in quanto senza un identificativo del documento recuperabile tramite scansione è impossibile associare una singola chiave ad esso.
 \subsubsection{Mitigazione del problema}
 (In questa sezione spiego di come, discutendo con gli stakeholders, siamo riusciti a trovare un compromesso per far si che le chiavi venissero associate ai documenti)
 
