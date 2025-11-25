@@ -4,7 +4,7 @@ Il presente capitolo introduce la realizzazione dell'applicazione \textit{Key Wa
 \section{Pianificazione del lavoro}
 Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazione di fattibilità e di potenziale impiego nuove tecnologie per l’azienda in nuovi prodotti. Pertanto mi serviva trovare un compromesso che mi offrisse nella fase di studio rigidità e nella fase di sviluppo e implementazione flessibilità. Quindi per la realizzazione del progetto ho scelto un approccio ibrido tra un modello sequenziale a cascata durante lo studio e la pianificazione, mentre nella realizzazione dell’applicazione ho scelto un modello agile.
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{6cm}|c|c|c|c|c|c|c|c|c|}
         \hline
@@ -58,7 +58,7 @@ La fase di analisi svolta durante le prime settimane del percorso di \textit{sta
 I requisiti funzionali definiscono le funzionalità e i servizi specifici che l’applicazione deve fornire per conseguire gli obiettivi del progetto.
 Ogni requisito funzionale è codificato in questo modo: \textbf{RF[Numero]}.
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|p{10cm}|}
         \hline
@@ -88,7 +88,7 @@ Ogni requisito funzionale è codificato in questo modo: \textbf{RF[Numero]}.
 I requisiti di qualità stabiliscono degli \textit{standard} secondo cui tali funzionalità del prodotto devono essere realizzate ed eseguite, assicurando un elevato livello di affidabilità e coerenza del sistema.  Quest’ultimi sono stati definiti all’inizio del percorso di \textit{stage} e sono stati misurati alla fine come criteri per la valutazione del progetto.
 Ogni requisito di qualità è codificato in questo modo: \textbf{RQ[Numero]}.
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|p{10cm}|}
         \hline
@@ -112,7 +112,7 @@ I requisiti di vincolo definiscono le limitazioni operative e tecnologiche cui i
 Abbiamo già discusso dei vincoli del progetto nella sezione 2.4.2 Pertanto mi limito ad elencarli in questa sezione.
 Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
-\begin{table}[ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|p{10cm}|}
         \hline
@@ -132,7 +132,7 @@ Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
 
 \section{Implementazione}
-\subsection{Il linguaggio Dart e il \textit{framework} Flutter}
+\subsection{Il linguaggio Dart}
 Lo studio di questo linguaggio di programmazione ha rappresentato la prima sfida del progetto, in quanto sarebbe stata la base da cui partire per costruire l’intera applicazione. Personalmente non avevo mai visto ne provato questo linguaggio tuttavia la sua sintassi simile a Java e JavaScript hanno fortemente semplificato il suo apprendimento. Riporto di seguito le principali differenze e peculiarità che secondo me sono importanti da sottolineare in quanto caratteristiche fondamentali del linguaggio:
 \newline
 \newline
@@ -140,7 +140,7 @@ Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Goo
 \subsubsection*{\textit{Type-safe}}
 Dart è un linguaggio \textit{type-safe}: ovvero ogni variabile mantiene una corrispondenza certa con il proprio tipo statico. Però allo stesso tempo offre un sistema di tipizzazione flessibile grazie alla \textit{keyword} \texttt{dynamic}, che permette la verifica dei tipi a \textit{run-time} quando necessario.
 
-\begin{listing}[ht]
+\begin{listing}[H]
 \caption{Esempio di \textit{type-safe}}
 \begin{minted}{dart}
 void main() {
@@ -161,7 +161,7 @@ void main() {
 \subsubsection*{\textit{null-safe}}
 Il linguaggio integra un sistema di \textit{null safety}: il valore \texttt{null} può essere associato a una variabile solo se esplicitamente dichiarato.
 
-\begin{listing}[ht]
+\begin{listing}[H]
 \caption{Esempio di \textit{null safety}}
 \begin{minted}{dart}
 void main() {
@@ -184,7 +184,7 @@ La distinzione dei due concetti risiede nel modo in cui vengono utilizzate le cl
 Un’interfaccia definisce un contratto: qualsiasi classe che la derivi deve utilizzare la \textit{keyword} \texttt{implements}, impegnandosi pertanto a fornire una implementazione concreta di tutti i metodi dichiarati.
  Al contempo, una classe astratta può essere estesa tramite la \textit{keyword} \texttt{extends} e può contenere sia i metodi astratti sia metodi già implementati. 
 
-\begin{listing}[ht]
+\begin{listing}[H]
 \caption{Esempio di interfaccia e classe astratta}
 \begin{minted}{dart}
 abstract class ContrattoDiConnessione { 
@@ -220,7 +220,7 @@ In Dart, ogni classe definita genera implicitamente un'interfaccia che include t
 
 \newpage
 
-\subsection*{Il \textit{framework} Flutter}
+\subsection{Il \textit{framework} Flutter}
 
 La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non utilizza componenti di interfaccia nativi del sistema operativo ospite, ma al contrario sfrutta un suo motore grafico che disegna direttamente sulla schermata del dispositivo, garantendo un controllo totale sul \textit{rendering} dell’interfaccia e garantendo prestazioni comparabili a quelle delle applicazioni native. 
 Appoggiandosi sul linguaggio Dart, Flutter supporta funzioni specifiche che permettono ad un programmatore di velocizzare lo sviluppo. Una di queste funzioni è l'\textit{hot-reload} che permette di visualizzare immediatamente le modifiche al codice senza dover aspettare ogni volta una nuova compilazione.
@@ -230,7 +230,7 @@ Per lavorare bene in Flutter è fondamentale comprendere che ogni elemento dell�
 \subsubsection*{\textit{Stateless widget}}
 Uno \textit{stateless widget} è un \textit{widget} immutabile, ovvero un componente la cui configurazione non cambia durante l’intero ciclo di vita senza variare nel tempo.
 
-\begin{listing}[ht]
+\begin{listing}[H]
 \caption{\textit{Stateless Widget}}
 \begin{minted}{dart}
 class Titolo extends StatelessWidget {
@@ -250,7 +250,7 @@ class Titolo extends StatelessWidget {
 \subsubsection*{\textit{Stateful widget}}
 Uno \textit{stateful widget} è un \textit{widget} mutabile, in grado di mantenere e aggiornare un suo stato interno. Questo stato è gestito da una classe chiamata \texttt{State} che  permette di modificare lo stato e aggiornare l’interfaccia. Quando lo stato cambia, Flutter chiama il metodo \texttt{setState()}, che a sua volta forza la ricostruzione del \textit{widget}.
 
-\begin{listing}[ht]
+\begin{listing}[H]
   \caption{\textit{Stateful Widget}}
   \begin{minted}{dart}
 class Contatore extends StatefulWidget {
@@ -314,7 +314,7 @@ Per realizzare questo sono state analizzate due librerie Flutter che permettono 
 \newline
 Grazie alla documentazione fornita dagli sviluppatori eseguire un prototipo che permetta la scansione dei documenti è stato facile.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{../assets/PrototipoNFC.png} 
     \caption{Applicazione prototipale per dimostrare la fattibilità della scansione NFC}
@@ -335,26 +335,256 @@ L’identificatore temporaneo e non persistente rientra nelle misure previste pe
 \newline
 Questo rappresenta per il progetto un bel problema in quanto senza un identificativo del documento recuperabile tramite scansione è impossibile associare una singola chiave ad esso.
 \subsubsection{Mitigazione del problema}
-(In questa sezione spiego di come, discutendo con gli stakeholders, siamo riusciti a trovare un compromesso per far si che le chiavi venissero associate ai documenti)
+Per interagire con la Carta d’Identità Elettronica (CIE) è necessario utilizzare gli strumenti \textit{software} ufficiali messi a disposizione dall’Istituto Poligrafico e Zecca dello Stato (IPZS).
+ Senza la loro implementazione, un’applicazione di terze parti può accedere solo a informazioni superficiali come quelle indicate precedentemente, senza accedere ai dati personali o ai file protetti presenti sul documento.
+\newline
+\newline
+Una prima soluzione valutata è stata quella di consultare la piattaforma dedicata agli sviluppatori che realizzano i software per la Pubblica Amministrazione (PA).
+ Tra i progetti disponibili è presente anche il \textit{kit} di sviluppo ufficiale per Android, reperibile al \textit{repository}  \href{https://github.com/italia/cieid-android-sdk}{\texttt{cieid-android-sdk}} . Questo consente di integrare nei sistemi Android l’autenticazione basata su CIE, ma è stato sviluppato in Kotlin ed è compatibile esclusivamente per le applicazioni native Android, entrando in conflitto con uno dei punti fondamentali dello sviluppo di applicazioni in Flutter ovvero lo sviluppo multi-piattaforma.
+\newline
+\newline
+A seguito di riunioni interne con il mio responsabile, si è scelto di non procedere su questa strada, sia per ragioni di tempo ma anche per evitare la gestione di dati sensibili, che sarebbero soggetti alle normative del GDPR\footnote{inserire} per l’azienda. Pertanto si è deciso di utilizzare come identificativo il valore degli \textit{historical bytes}, insieme allo standard del \textit{chip} NFC rilevato durante la scansione.
+\newline
+\newline
+I documenti quali la CIE, la tessera sanitaria o le carte di credito adottano lo standard ISO/IEC 14443-4, che prevedono la presenza di \textit{historical bytes}. Sebbene questi non rappresentino un identificatore univoco in senso assoluto, risulta estremamente improbabile che due \textit{tag} diversi registrino lo stesso valore, soprattutto se appartenenti a categorie differenti.
+ Per ridurre ancora tale probabilità, l’applicazione esegue la verifica di unicità solo tra i documenti registrati dall’utente e non su tutti quelli presenti nel \textit{database} dell’applicazione, garantendo così un adeguato livello di affidabilità.
+
+
+\begin{listing}[H]
+  \caption{Funzione che permette la scansione del tag nfc}
+  \begin{minted}[fontsize=\small]{dart}
+Future<NFCTag?> fetchNfcData() async {
+    try {
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        await _nfcKitWrapper
+          .setIosAlertMessage("Avvicina il dispositivo...");
+      }
+      NFCTag tag = await _nfcKitWrapper.poll();
+      return tag;
+    } catch (e) {
+      await _nfcKitWrapper.finish();
+      return null;
+    }
+}
+
+Future<void> _scanNfcTag() async {
+    if (_isScanning) return;
+    setState(() => _isScanning = true);
+    try {
+      final nfcService = context.read<INfcService>();
+      dynamic tagData = 
+        await nfcService.fetchNfcData();
+      if (tagData != null && mounted) {
+        setState(() {
+          hBytes = tagData.historicalBytes 
+            ?.toString() ?? 'N/D';
+          standard = tagData.standard
+            ?.toString() ?? 'N/D';
+          if (hBytes.isNotEmpty && 
+              hBytes != 'N/D' && 
+              standard.isNotEmpty) {
+            ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(
+                content: Text(
+                  "Documento scansionato!"),
+                backgroundColor: Colors.green));
+          }
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(
+            content: Text("Errore: $e"),
+            backgroundColor: Colors.red));
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isScanning = false);
+      }
+    }
+}
+  \end{minted}
+\end{listing}
+\newpage
 
 \subsection{Studio degli algoritmi di crittografia}
-(In questa sezione descrivo gli algoritmi di crittografia analizzati e scelti per la realizzazione dell'applicativo, in particolar modo dei vantaggi e svantaggi di ognuno)
+In questa sezione si espongono e si analizzano i principali algoritmi crittografici, evidenziandone il funzionamento e discutendo i rischi associati al loro impiego. Per molti esempi e descrizione degli scenari utilizzerò gli attori Alice e Bob che rappresentano due utenti generici che vogliono conversare tra di loro. 
+\newline
+\newline
+Per analizzare la comunicazione digitale è importante garantire quattro aspetti:
+\begin{enumerate}
+  \item \textbf{Confidenzialità}: assicurare che nessun osservatore non autorizzato sia in grado di leggere il messaggio durante la trasmissione.
+  \item \textbf{Integrità}: garantire che il messaggio non sia alterato da nessuno.
+  \item \textbf{Autenticazione}: verificare che il mittente sia chi dichiara di essere.
+  \item \textbf{Non ripudio}: impedire che il mittente possa negare di aver inviato il messaggio.
+\end{enumerate}
 
 \subsubsection{Algoritmi a chiave simmetrica}
+Gli algoritmi di crittografia simmetrica utilizzano un’unica chiave segreta condivisa tra i due attori ed è usata sia per cifrare sia per decifrare il messaggio. 
+\newline
+Il funzionamento è descritto come segue:
+\begin{enumerate}
+  \item  Alice e Bob concordano o si scambiano in modo sicuro una chiave condivisa $k$;
+  \item  Alice prende il messaggio in chiaro $P$ e applica un algoritmo di cifratura simmetrica $S$, ottenendo il messaggio cifrato $C$.
+  \item  Quando Bob riceve $C$, applica l’algoritmo di decifratura $D$, utilizzando $k$, ricostruendo il messaggio originale $P$.
+\end{enumerate}
+Pertanto per adottare questo algoritmo Alice e Bob devono conoscere e adoperare la stessa chiave utilizzando un canale di comunicazione sicuro.
+\begin{itemize}
+  \item Se la chiave venisse rubata, l’attaccante può fingersi il mittente originale.
+  \item Non è possibile distribuire in modo sicuro la chiave privata a un partner remoto senza utilizzare un altro sistema di sicurezza.
+\end{itemize}
+
 \subsubsection{Algoritmi a chiave asimmetrica}
 
-\subsection{Firebase} (In questa sezione descrivo il database e la struttura dei dati del progetto)
+Gli algoritmi di crittografia asimmetrica superano le limitazioni logistiche degli algoritmi di crittografia simmetrici. Per ogni attore coinvolto nella comunicazione viene utilizzata una coppia di chiavi fondamentali per il processi di cifratura e decifratura.
+\newline
+Il funzionamento è descritto come segue.
+\begin{enumerate}
+  \item Bob genera una coppia di chiavi $(k^B_{pub} , K^B_{priv})$ e rende $k^B_{}$ pubblico a tutti;
+  \item Alice ricerca la chiave pubblica di Bob e cifra il messaggio in chiaro $P$ con la chiave pubblica di Bob $k^B_{pub}$, ottenendo un messaggio cifrato $C$.
+  \item Bob riceve il messaggio e lo decifra con utilizzando la propria chiave privata $k^B_{priv}$ ottenendo $P$.
+\end{enumerate}
+L’uso di questi algoritmi risolve il problema dello scambio della chiave presente negli algoritmi di crittografia simmetrica in quanto la condivisione della chiave pubblica sulla rete non compromette la sicurezza del sistema.
+Inoltre si garantisce l’autenticazione e l’integrità dato che è possibile verificare l’identità del mittente invertendo il processo di crittografia.
+ Se il messaggio viene cifrato con la chiave privata del mittente e successivamente è possibile decifrarlo con la sua chiave pubblica corrispondente.
+  Inoltre questo ci permette di verificare che il messaggio non sia stato alterato durante la comunicazione.
+
+\subsection{Realizzazione di una \textit{chat end-to-end}}
+Uno degli obbiettivi del progetto riguarda la generazione di coppie di chiavi pubbliche e private e il loro utilizzo per cifrare e decifrare i messaggi inseriti nell’applicazione.
+Per soddisfare questo, ho deciso di realizzare una \textit{chat end-to-end} che permetta lo scambio di messaggi tra 2 utenti della \textit{chat} mediante protocollo RSA (Rivest-Shamir-Adleman).
+\subsubsection{Generazione sicura delle chiavi}
+Il processo inizia con la creazione di un generatore di numeri pseudocasuali basata sul generatore \texttt{FortunaRandom}, messo a disposizione da \texttt{pointycastle}, per assicurare una adeguata fonte di entropia tale da garantire che il programma non generi coppie di chiavi con lo stesso valore numerico.
+\newline
+
+\begin{listing}[H]
+  \caption{Generatore di numeri casuali}
+  \begin{minted}{dart}
+SecureRandom getSecureRandom() {
+    final secureRandom = FortunaRandom(); 
+    final seed = Uint8List(32);
+    final random = Random.secure();
+    for (int i = 0; i < seed.length; i++) {
+      seed[i] = random.nextInt(256);
+    }
+    secureRandom.seed(KeyParameter(seed)); 
+    return secureRandom;
+  }
+  \end{minted}
+\end{listing}
+
+Questo generatore viene passato al metodo \texttt{generateRSAkeyPair()} responsabile della creazione delle chiavi RSA. Il generatore produce quindi una coppia di chiavi lunga 256 \textit{byte} che rappresenta la lunghezza standard delle moderne chiavi RSA.
+
+\begin{listing}[H]
+  \caption{Generazione della coppia di chiavi}
+  \begin{minted}{dart}
+AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureRandom) {
+    final keyGen = RSAKeyGenerator();
+    keyGen.init(
+      ParametersWithRandom(
+        RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64),
+        secureRandom,)
+    );
+    return keyGen.generateKeyPair();
+}
+  \end{minted}
+\end{listing}
+
+Per rispettare i requisiti e permettere sia allo \textit{stakeholder} di visualizzare il risultato ottenuto le chiavi sono mostrate in chiaro sull'applicazione ma in un contesto pratico questo non deve avvenire in quanto compromette la sicurezza del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../assets/KeyPairVisualized.png} 
+    \caption{Risultato del processo di creazione delle chiavi}
+\end{figure}
+
+\subsubsection{Codifica e decodifica del messaggio}
+Una volta generate le coppie di chiavi RSA è possibile utilizzarle per la realizzazione dei requisiti funzionali cinque e sei del progetto che riguardano la possibilità di cifrare e decifrare i messaggi inseriti nell’applicazione.
+\newline
+La cifratura è gestita dal metodo \texttt{rsaEncryptBase64()} che elabora il messaggio in chiaro tramite il motore crittografico \texttt{RSAEngine} sempre offerto dalla libreria \texttt{pointycastle} e dalla chiave pubblica del destinatario.
+
+\begin{listing}[H]
+  \caption{Codifica di un messaggio mediante l'uso delle chiave pubblica}
+  \begin{minted}{dart}
+    Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {
+    final engine = RSAEngine(); 
+    engine.init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
+
+    try {
+      final encrypted = engine.process(Uint8List.fromList(utf8.encode(plainText)));
+      return base64Encode(encrypted);
+    } catch (e) {
+      return null;
+    }
+  }
+  \end{minted}
+\end{listing}
+
+Il messaggio cifrato restituito viene poi convertito in un formato \textit{Base64} in modo tale che sia memorizzato e trasmesso al \textit{database} in forma di stringa senza incorrere in problemi di formattazione. Come mostrato nell’immagine sottostante, il messaggio inserito risulta cifrato prima della memorizzazione.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../assets/Base64Decoder.png} 
+    \caption{decodifica del testo cifrato in \textit{base64} -- Strumento: base64decode.org}
+\end{figure}
+
+La decifratura è affidata a \texttt{rsaDecryptBase64()}, che esegue l’operazione inversa decodificando il testo cifrato tramite l’uso della chiave privata del destinatario rendendo il testo di nuovo leggibile.
+
+\begin{listing}[H]
+  \caption{Decodifica di un messaggio mediante l'uso della chiave privata}
+  \begin{minted}{dart}
+  Future<String?> rsaDecryptBase64(String cipherText,RSAPrivateKey privateKey) async {
+    final engine = RSAEngine();
+    engine.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+
+    try {
+      final decrypted = engine.process(base64Decode(cipherText));
+      return utf8.decode(decrypted);
+    } catch (e) {
+      return "Messaggio non decodificabile";
+    }
+  }
+  \end{minted}
+\end{listing}
+
+\subsubsection{Problema di questo algoritmo}
+L’implementazione dell’algoritmo mostrato presenta un problema specifico per la realizzazione di una \textit{chat} tra due utenti.
+ RSA consente la visione del messaggio in chiaro solo al destinatario (Bob) in quanto solo lui possiede la relativa chiave privata.
+  Pertanto il mittente (Alice) dopo aver cifrato il testo con la chiave pubblica di Bob non ha più la possibilità di leggerlo. 
+\newline
+È possibile procedere in due modi diversi per la risoluzione del problema: 
+\begin{itemize}
+  \item la prima soluzione consiste nel salvare localmente sul dispositivo del mittente una copia del messaggio in chiaro prima che esso venga cifrato e inviato al database. In questo modo l’interfaccia utente mostra la versione salvata localmente per i messaggi che invia il mittente. 
+\end{itemize}
+
+\begin{itemize}
+  \item la seconda soluzione adottata nel progetto consiste nel inviare due copie dello stesso messaggio al \textit{database}: la prima cifrata con la chiave pubblica del destinatario e la seconda cifrata con la chiave pubblica del mittente. In questo modo entrambi gli interlocutori possono recuperare la loro versione decifrabile dal \textit{database} visualizzando i messaggi in chiaro.
+\end{itemize}
+Tuttavia questa scelta espone un rischio aggiuntivo in quanto un attaccante potrebbe individuare nel \textit{database} due messaggi identici ma cifrati con chiavi differenti mettendo il sistema a rischio. Per ridurre questa possibilità ho introdotto lo schema di \textit{padding} OAEP\footnote{Inserire} all’algoritmo RSA che introduce casualità e rende impossibile ottenere due testi cifrati uguali dallo stesso messaggio.
+
+\begin{listing}[H]
+  \caption{Modifica agli algoritmi di codifica e decodifica aggiungendo OAEP}
+  \begin{minted}{dart}
+  Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {
+    final engine = OAEPEncoding(RSAEngine()); 
+    engine.init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
+    // ...
+  }
+
+  Future<String?> rsaDecryptBase64(String cipherText,RSAPrivateKey privateKey) async {
+    final engine = OAEPEncoding(RSAEngine());
+    engine.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+    // ...
+  }
+  \end{minted}
+\end{listing}
+
 
 \subsection{Gestione sicura delle chiavi pubbliche e private}
-
 (In questa sezione descrivo uno dei punti critici del mio progetto ovvero come recuperare la chiave privata che non viene trasmessa online e il suo trasferimento su un nuovo dispositivo in caso di smarrimento)
 
-\subsection{Realizzazione di una chat \textit{end-to-end}}
-(In questa sezione discuto di come ho realizzato una chat utente per dimostrare come i messaggi inseriti nell'applicativo vengano criptati e decifrati per rispettare i requisiti, e i problemi riscontrati)
+\subsubsection{La classe \textit{Wallet}}
 
-\subsubsection{L'algoritmo RSA}
-\subsubsection{Problemi di RSA}
-\subsubsection{Mitigazione del problema tramite RSAOAEP}
 
 \section{Risultati Raggiunti}
 (in questa sezione parlo dei risultati e raggiunti, delle funzioni implementate nell'applicazione come ad esempio la ricerca, la conversazione, e come le chiavi sono state associate ai documenti)
