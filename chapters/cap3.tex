@@ -1,8 +1,8 @@
 \chapter{Realizzazione dell'applicazione}
 \label{cap:Realizzazione dell'applicazione}
-Il presente capitolo introduce la realizzazione dell'applicazione \textit{Key Wallet App} descrivendo una fase di pianificazione e di analisi per poi proseguire verso i problemi riscontrati durante lo sviluppo, la loro mitigazione e le scelte che sono state intraprese e si conclude con un resoconto su ciò che è stato realizzato.
+Il presente capitolo descrive la realizzazione dell'applicazione \textit{Key Wallet App} illustrando in primo luogo la fase di pianificazione e di analisi per poi proseguire verso i problemi riscontrati durante lo sviluppo, la loro mitigazione e le scelte che sono state compiute. Si conclude con un resoconto su quanto è stato realizzato.
 \section{Pianificazione del lavoro}
-Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazione di fattibilità e di potenziale impiego nuove tecnologie per l’azienda in nuovi prodotti. Pertanto mi serviva trovare un compromesso che mi offrisse nella fase di studio rigidità e nella fase di sviluppo e implementazione flessibilità. Quindi per la realizzazione del progetto ho scelto un approccio ibrido tra un modello sequenziale a cascata durante lo studio e la pianificazione, mentre nella realizzazione dell’applicazione ho scelto un modello agile.
+Come introdotto nel capitolo 2, l’obiettivo del mio progetto era una valutazione di fattibilità e di potenziale impiego di nuove tecnologie per l’azienda in prodotti nuovi. Pertanto ho dovuto coniugare rigidità nella fase di studio e flessibilità nella fase di sviluppo e implementazione. Quindi per la realizzazione del progetto ho scelto un approccio ibrido tra un modello sequenziale a cascata durante lo studio e la pianificazione, e un modello agile per la realizzazione dell'applicazione.
 
 \begin{table}[H]
     \centering
@@ -40,17 +40,25 @@ Come introdotto nel capitolo 2 l’obiettivo del mio progetto era una valutazion
     \caption{Pianificazione del lavoro durante le 8 settimane}
 \end{table}
 
-Durante le prime settimane di stage, è stata applicata una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Durante la prima settimana ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter per poi spostarmi sulla libreria di pointycastle e gli algoritmi di crittografia durante la prime due settimane di stage. Dalla terza settimana fino alla 4 mi sono concentrato sullo sviluppo di piccoli prototipi (es. login finto, generazione di chiavi alla pressione di un tasto e lettura di tag nfc). Questi prototipi sono stati molto utili per effettuare piccoli test sulle funzioni nelle settimane successive e a trovare falle sul progetto immediatamente una tra tutte la lettura di tag nfc. Difatti questi ultimi non possiedono un identificativo fisso sulle carte d’identità elettroniche ma cambia ogni secondo.
+Durante le prime settimane di \textit{stage}, ho applicato una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Nel primo blocco ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter, per poi spostarmi sulla libreria di \texttt{pointycastle} e sugli gli algoritmi di crittografia. Dalla terza settimana fino alla quarta mi sono concentrato sullo sviluppo di piccoli prototipi, per esempio: \textit{login} finto, generazione di chiavi alla pressione di un tasto e lettura di \textit{tag} nfc.
+ Questi sono stati molto utili per effettuare \textit{test} sulle funzioni nelle settimane successive e a trovare immediatamente falle all'interno del progetto. Una fra tutte la lettura di \textit{tag} NFC, i quali
+ non possiedono un identificativo fisso sulle carte d’identità elettroniche.
 \newline
 \newline
-Una volta completata la prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale. Lo sviluppo agile offre una gestione flessibile dei problemi tecnici, e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendomi di integrare funzionalità ad ogni iterazione. Questo significava che per le ultime fasi del progetto pianificavo, implementavo e testavo le funzionalità implementate. Permettendomi di reagire immediatamente ai problemi ritrovati, uno tra questi, l’uso di un algoritmo RSA senza padding.
+Una volta completata la prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale.
+ Lo sviluppo agile offre una gestione flessibile dei problemi tecnici e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendo di integrare funzionalità ad ogni iterazione.
+  Questo significa che per le ultime fasi del progetto pianificavo, sviluppavo e testavo le funzionalità implementate, reagendo immediatamente ai problemi riscontrati, uno tra questi, l’uso di un algoritmo RSA senza \textit{padding}.
 \newline
 \newline
-L’adozione quindi dell’approccio ibrido ha garantito la copertura formativa e analitica iniziale, consentendo al contempo la gestione flessibile e sicura delle complessità tecniche emerse durante la loro implementazione.
+In definitiva, l’adozione dell’approccio ibrido ha garantito la copertura formativa e analitica iniziale, consentendo al contempo la gestione flessibile e sicura delle complessità tecniche emerse durante lo sviluppo.
 
 
 \section{Analisi dei requisiti}
-La fase di analisi svolta durante le prime settimane del percorso di \textit{stage}, sono state cruciali per definire l’architettura applicativa e le tecnologie da utilizzare. Gli incontri con il \textit{tutor} hanno rappresentato un fulcro importante per lo sviluppo e la definizione del progetto. Le diverse iterazioni hanno permesso di delineare le linee guida e velocizzare le scelte tecnologiche, ad esempio l’uso di librerie specifiche come \texttt{pointycastle} per la crittografia o \texttt{flutter\_secure\_storage} per la gestione locale della chiave privata. A seguito di queste indicazione la fase di analisi è stata focalizzata sullo studio di fattibilità delle tecnologie e sullo sviluppo di piccoli prototipi. 
+La fase di analisi svolta durante le prime settimane del percorso di \textit{stage},
+ è stata cruciale per definire l’architettura applicativa e le tecnologie da utilizzare.
+  Gli incontri con il \textit{tutor} hanno rappresentato un fulcro importante per lo sviluppo e la definizione del progetto.
+   Le diverse iterazioni hanno permesso di delineare le linee guida e velocizzare le scelte tecnologiche, ad esempio l’uso di librerie specifiche come \texttt{pointycastle} per la crittografia o \texttt{flutter\_secure\_storage} per la gestione locale della chiave privata.
+    A seguito di queste indicazioni durante la fase di analisi mi sono focalizzato sullo studio di fattibilità delle tecnologie e sullo sviluppo di prototipi. 
 
 \newpage
 
@@ -85,7 +93,8 @@ Ogni requisito funzionale è codificato in questo modo: \textbf{RF[Numero]}.
 \end{table}
 
 \subsection{Requisiti di qualità}
-I requisiti di qualità stabiliscono degli \textit{standard} secondo cui tali funzionalità del prodotto devono essere realizzate ed eseguite, assicurando un elevato livello di affidabilità e coerenza del sistema.  Quest’ultimi sono stati definiti all’inizio del percorso di \textit{stage} e sono stati misurati alla fine come criteri per la valutazione del progetto.
+I requisiti di qualità stabiliscono gli \textit{standard} secondo i quali le funzionalità del prodotto devono essere realizzate ed eseguite, assicurando un elevato livello di affidabilità e coerenza del sistema.
+Sono stati definiti all’inizio del percorso di \textit{stage} e hanno costituito i criteri finali per la valutazione del progetto.
 Ogni requisito di qualità è codificato in questo modo: \textbf{RQ[Numero]}.
 
 \begin{table}[H]
@@ -108,8 +117,9 @@ Ognuno di questi requisiti è stato verificato attraverso lo sviluppo di test au
 
 
 \subsection{Requisiti di vincolo}
-I requisiti di vincolo definiscono le limitazioni operative e tecnologiche cui il progetto ha dovuto attenersi, influenzando direttamente le scelte architetturali e l'ambito di sviluppo. 
-Abbiamo già discusso dei vincoli del progetto nella sezione 2.4.2 Pertanto mi limito ad elencarli in questa sezione.
+I requisiti di vincolo definiscono le limitazioni operative e tecnologiche cui il progetto ha dovuto attenersi,
+ influenzano direttamente le scelte architetturali e l'ambito di sviluppo. 
+Abbiamo già discusso dei vincoli del progetto nella sezione 2.4.2. Pertanto mi limito a elencarli in questa sezione.
 Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
 \begin{table}[H]
@@ -133,10 +143,18 @@ Ogni requisito di vincolo è codificato in questo modo: \textbf{RV[Numero]}.
 
 \section{Implementazione}
 \subsection{Il linguaggio Dart}
-Lo studio di questo linguaggio di programmazione ha rappresentato la prima sfida del progetto, in quanto sarebbe stata la base da cui partire per costruire l’intera applicazione. Personalmente non avevo mai visto ne provato questo linguaggio tuttavia la sua sintassi simile a Java e JavaScript hanno fortemente semplificato il suo apprendimento. Riporto di seguito le principali differenze e peculiarità che secondo me sono importanti da sottolineare in quanto caratteristiche fondamentali del linguaggio:
-\newline
-\newline
-Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Google, è stato concepito come alternativa a JavaScript per lo sviluppo \textit{web}. Sebbene questo obiettivo non abbia trovato ampia adozione, Dart si è affermato come linguaggio versatile ed efficace nello sviluppo di applicazioni multipiattaforma. Una delle sue caratteristiche è quella di essere compilato verso diversi \textit{target}: ARM64 per i dispositivi mobili, JavaScript per il \textit{web}, e architetture x86\_64 per i sistemi operativi \textit{desktop} quali Windows, macOS e Linux. 
+Lo studio di questo linguaggio di programmazione ha rappresentato la prima sfida del progetto,
+ in quanto rappresenta la base da cui partire per costruire l’intera applicazione.
+Nonostante non avessi mai visto né provato questo linguaggio, 
+ la sua sintassi simile a Java e JavaScript hanno fortemente semplificato il suo apprendimento. Riporto di seguito le principali differenze e peculiarità che ritengo importante sottolineare,
+  in quanto caratteristiche fondamentali del linguaggio:
+\subsubsection*{Utilizzo}
+Dart è un linguaggio di programmazione orientato agli oggetti sviluppato da Google,
+ è stato concepito come alternativa a JavaScript per lo sviluppo \textit{web}.
+  Sebbene non abbia trovato ampia adozione in questo settore,
+   Dart si è affermato come linguaggio versatile ed efficace nello sviluppo di applicazioni multipiattaforma.
+    Una delle sue caratteristiche è quella di essere compilato verso diversi \textit{target}:
+     ARM64 per i dispositivi mobili, JavaScript per il \textit{web}, e architetture x86\_64 per i sistemi operativi \textit{desktop} quali Windows, macOS e Linux. 
 \subsubsection*{\textit{Type-safe}}
 Dart è un linguaggio \textit{type-safe}: ovvero ogni variabile mantiene una corrispondenza certa con il proprio tipo statico. Però allo stesso tempo offre un sistema di tipizzazione flessibile grazie alla \textit{keyword} \texttt{dynamic}, che permette la verifica dei tipi a \textit{run-time} quando necessario.
 
@@ -159,7 +177,8 @@ void main() {
 \end{listing}
 
 \subsubsection*{\textit{null-safe}}
-Il linguaggio integra un sistema di \textit{null safety}: il valore \texttt{null} può essere associato a una variabile solo se esplicitamente dichiarato.
+Il linguaggio integra un sistema di \textit{null safety}:
+ il valore \texttt{null} può essere associato a una variabile solo se esplicitamente dichiarato.
 
 \begin{listing}[H]
 \caption{Esempio di \textit{null safety}}
@@ -216,19 +235,24 @@ class HomePage extends BaseScreen {
 }
 \end{minted}
 \end{listing}
-In Dart, ogni classe definita genera implicitamente un'interfaccia che include tutti i suoi metodi e proprietà pubbliche.
-
-\newpage
+In Dart, ogni classe definita genera implicitamente una interfaccia che include tutti i suoi metodi e proprietà pubbliche.
 
 \subsection{Il \textit{framework} Flutter}
 
-La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non utilizza componenti di interfaccia nativi del sistema operativo ospite, ma al contrario sfrutta un suo motore grafico che disegna direttamente sulla schermata del dispositivo, garantendo un controllo totale sul \textit{rendering} dell’interfaccia e garantendo prestazioni comparabili a quelle delle applicazioni native. 
-Appoggiandosi sul linguaggio Dart, Flutter supporta funzioni specifiche che permettono ad un programmatore di velocizzare lo sviluppo. Una di queste funzioni è l'\textit{hot-reload} che permette di visualizzare immediatamente le modifiche al codice senza dover aspettare ogni volta una nuova compilazione.
+La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non utilizza componenti di interfaccia nativi del sistema operativo ospite,
+ ma al contrario sfrutta un suo motore grafico che disegna direttamente sulla schermata del dispositivo,
+  garantendo un controllo totale sul \textit{rendering} dell’interfaccia e prestazioni comparabili
+   a quelle delle applicazioni native. 
+Sfruttando il linguaggio Dart, Flutter supporta funzioni specifiche che permettono al programmatore di velocizzare lo sviluppo. Una di queste funzioni è l'\textit{hot-reload} che permette di visualizzare immediatamente le modifiche al codice senza dover aspettare ogni volta una nuova compilazione.
 \newline
 \newline
-Per lavorare bene in Flutter è fondamentale comprendere che ogni elemento dell’interfaccia è rappresentato da un \textit{widget}. Il \textit{framework} adotta un approccio basato sulla composizione, tutto dagli elementi più semplici ai \textit{layout} più complessi è costruito tramite \textit{widget} annidati tra loro. Per fare un esempio banale una schermata tipica in Flutter è definita attraverso il \textit{widget} \texttt{Scaffold} che fornisce la struttura di base dell’interfaccia. Lo \texttt{Scaffold} accetta parametri come \texttt{appBar}, \texttt{body} e \texttt{floatingActionButton}. Questi parametri verranno a loro volta definiti tramite altri \textit{widget}. Bisogna tuttavia fare una distinzione importante tra i \textit{widget} senza stato \textit{(stateless)} e i \textit{widget} con stato \textit{(stateful)}.
-\subsubsection*{\textit{Stateless widget}}
-Uno \textit{stateless widget} è un \textit{widget} immutabile, ovvero un componente la cui configurazione non cambia durante l’intero ciclo di vita senza variare nel tempo.
+Per lavorare bene in Flutter è fondamentale comprendere che ogni elemento dell’interfaccia è rappresentato da un \textit{widget}.
+ Il \textit{framework} adotta un approccio basato sulla composizione, tutto dagli elementi più semplici ai \textit{layout} più complessi è costruito tramite \textit{widget} annidati tra loro.
+  Per fare un esempio banale, una schermata tipica in Flutter è definita attraverso il \textit{widget} \texttt{Scaffold} che fornisce la struttura di base dell’interfaccia.
+   Lo \texttt{Scaffold} accetta parametri come \texttt{appBar}, \texttt{body} e \texttt{floatingActionButton}. Questi parametri verranno a loro volta definiti tramite altri \textit{widget}. Bisogna tuttavia fare una distinzione importante tra i \textit{widget} senza stato \textit{(stateless)} e i \textit{widget} con stato \textit{(stateful)}.
+
+   \subsubsection*{\textit{Stateless widget}}
+Uno \textit{stateless widget} è un \textit{widget} immutabile, ovvero un componente la cui configurazione non cambia durante l’intero ciclo di vita.
 
 \begin{listing}[H]
 \caption{\textit{Stateless Widget}}
@@ -288,15 +312,17 @@ class _ContatoreState extends State<Contatore> {
 L’applicazione sviluppata adotta il modello di architettura a tre livelli, una struttura che segmenta i componenti \textit{software} in strati logicamente distinti, ciascuno con responsabilità differenti e ben definite.
 \newline
 \newline
-Il primo livello di presentazione rappresenta un punto di interazione tra l’utente e il sistema. È composto da tutto ciò che definisce l’interfaccia grafica. Quindi le schermate e \textit{widget} che le compongono. La sua funzione è quella di presentare i dati in chiaro e raccogliere l’\textit{input} dell’utente.
+Il primo livello di presentazione rappresenta un punto di interazione tra l’utente e il sistema. È composto da tutto ciò che definisce l’interfaccia grafica, quindi le schermate e \textit{widget} che le compongono. La sua funzione è quella di presentare i dati in chiaro e raccogliere l’\textit{input} dell’utente.
 \newline
 \newline
-Il secondo livello rappresenta la logica di \textit{business}. Coordina le operazioni tra il livello di presentazione e il livello dei dati. Nel mio caso specifico è responsabile di operazioni fondamentali come la generazione delle chiavi crittografiche e l’esecuzione dei processi di cifratura e decifratura.
+Il secondo livello rappresenta la logica di \textit{business}: coordina le operazioni tra il livello di presentazione e il livello dei dati. Nel mio caso specifico è responsabile di operazioni fondamentali come la generazione delle chiavi crittografiche e l’esecuzione dei processi di cifratura e decifratura.
 \newline
 \newline
-Il terzo livello è responsabile della persistenza e recupero dei dati. Definisce come queste vengono archiviate e rese disponibili agli altri livelli.
+Il terzo livello è responsabile della persistenza e recupero dei dati. Definisce come questi vengono archiviati e resi disponibili agli altri livelli.
+
 \subsection{Il \textit{design pattern provider}}
-Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato adottato il \textit{design pattern provider} che si allinea perfettamente alle esigenze di una architettura a tre livelli in quanto:
+Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato adottato il \textit{design pattern provider}
+ poiché si allinea perfettamente alle esigenze di una architettura a tre livelli in quanto:
 \begin{enumerate}
   \item Permette la separazione delle responsabilità (SoC\footnote{Separation of Concerns}) eliminando la necessità di propagare le informazioni tramite la gerarchia dei \textit{widget}.
   \item Aumenta le \textit{performance} consentendoci di costruire i \textit{widget} strettamente necessari quando lo stato cambia, evitando i \textit{rebuild} di intere porzioni dell’interfaccia.
@@ -304,15 +330,26 @@ Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato
 \end{enumerate}
 
 \subsection{la tecnologia NFC}
-La tecnologia NFC permette a due dispositivi di connettersi, scambiarsi informazioni o attivare funzioni nel momento in cui si trovano a una distanza ravvicinata. Depositato da Charles Walton nel 1983 NFC nasce grazie all’intenzione di Sony e Philips di cooperare nella creazione di uno \textit{standard} per la comunicazione a radiofrequenza nel 2002, e L’ISO\footnote{International Standard Organization} lo approva solo nel 2003 come \textit{standard}. L’idea è quella di far integrare informazioni all’interno dei dispositivi mobili permettendo una facile iterazione tra documenti e telefoni. 
+La tecnologia NFC permette a due dispositivi di connettersi, 
+scambiarsi informazioni o attivare funzioni nel momento in cui si trovano a una distanza ravvicinata.
+ Depositato da Charles Walton nel 1983, NFC nasce nel 2002 grazie all’intenzione di Sony e Philips
+  di cooperare nella creazione di uno \textit{standard} per la comunicazione a radiofrequenza
+   e L’ISO\footnote{International Standard Organization} lo approva come \textit{standard} solo nel 2003.
+    L’idea è quella di integrare informazioni all’interno dei dispositivi mobili tramite una semplice iterazione tra documenti e telefoni. 
 
 \subsubsection{Lettura dati nei \textit{chip} RFID}
-Uno dei requisiti era l’implementazione di un meccanismo di riconoscimento dei documenti contenenti il \textit{chip} RFID per associare le coppie di chiavi al ID del documento. In buona sostanza l’utente alla creazione del \textit{wallet}, avrebbe dovuto scansionare il documento.
+Uno dei requisiti era l’implementazione di un meccanismo di riconoscimento dei documenti contenenti
+ il \textit{chip} RFID per associare le coppie di chiavi al ID del documento.
+  In buona sostanza alla creazione del \textit{wallet} l'utente avrebbe dovuto scansionare un documento.
 \newline
 \newline
-Per realizzare questo sono state analizzate due librerie Flutter che permettono la scansione e la scrittura attivando il sensore NFC presente sul telefono. La prima \texttt{nfc\_manager} alla versione 4.1.1 è stata scartata in quanto da poco tempo è passata a una \textit{major update} modificando tutti i nomi dei metodi e non viene aggiornata spesso, la seconda \texttt{flutter\_nfc\_kit} invece è stata la scelta definitiva in quanto include un supporto maggiore da parte degli sviluppatori e sta crescendo rapidamente. 
+Per realizzare ciò ho analizzato due librerie Flutter che permettono la scansione 
+e la scrittura attivando il sensore NFC presente sul telefono. La prima \texttt{nfc\_manager} alla versione 4.1.1 
+è stata scartata in quanto da poco tempo è passata a una \textit{major update},
+ che ha modificato tutti i nomi dei metodi, e non viene aggiornata spesso.
+  Ho scelto invece la seconda, \texttt{flutter\_nfc\_kit}, in quanto include un supporto maggiore da parte degli sviluppatori e sta crescendo rapidamente. 
 \newline
-Grazie alla documentazione fornita dagli sviluppatori eseguire un prototipo che permetta la scansione dei documenti è stato facile.
+Grazie alla documentazione fornita dagli sviluppatori è stato facile eseguire un prototipo che permetta la scansione dei documenti.
 
 \begin{figure}[H]
     \centering
