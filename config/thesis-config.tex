@@ -9,6 +9,7 @@
 % \renewcommand{\labelitemiv}{$\ast$}
 
 
+
 \let\Chaptermark\chaptermark
 % \Chaptername gives current chapter name
 \def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
@@ -62,6 +63,19 @@
 
 \DeclareBibliographyCategory{opere}
 \DeclareBibliographyCategory{web}
+\makeatletter
+% Avoid error if \listing/\listing* are already defined by another package:
+% If \listing undefined, declare 'listing', otherwise declare 'listingx' and
+% provide \listlistingname so other code can use it.
+\@ifundefined{listing}{
+    \DeclareCaptionType{listing}[Codice Sorgente][Lista degli elementi di codice]
+}{
+    \DeclareCaptionType{listingx}[Codice Sorgente][Lista degli elementi di codice]
+}
+\providecommand{\listlistingname}{Lista degli elementi di codice}
+\makeatother
+
+\renewcommand{\listlistingname}{Lista degli elementi di codice}
 
 \addtocategory{opere}{womak:lean-thinking}
 \addtocategory{web}{site:agile-manifesto}
@@ -131,7 +145,10 @@
 
 \newcommand{\sectionname}{sezione}
 \addto\captionsitalian{\renewcommand{\figurename}{Figura}
-                       \renewcommand{\tablename}{Tabella}}
+                       \renewcommand{\tablename}{Tabella}
+                       \renewcommand{\listlistingname}{Lista degli elementi di codice}}
+
+\renewcommand{\listfigurename}{Lista degli elementi di codice}
 
 \newcommand{\glsfirstoccur}{\ap{{[g]}}}
 

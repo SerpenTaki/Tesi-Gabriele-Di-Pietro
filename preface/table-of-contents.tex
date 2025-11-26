@@ -8,12 +8,12 @@
 \begingroup
     \let\clearpage\relax
     \let\cleardoublepage\relax
-    \let\cleardoublepage\relax
 
     % Figures list
     \phantomsection
     \pdfbookmark{\listfigurename}{lof}
     \listoffigures
+
 
     \vspace*{8ex}
 
@@ -23,6 +23,22 @@
     \listoftables
 
     \vspace*{8ex}
+    \phantomsection
+    \pdfbookmark{Lista degli elementi di codice}{lol} 
+    
+    % 1. STAMPA IL TITOLO GRANDE CORRETTO
+    \chapter*{\listlistingname} % Questo usa la tua ridenominazione italiana
+    \addcontentsline{toc}{chapter}{\listlistingname}
+    
+    % 2. MODIFICA TEMPORANEAMENTE \chapter* PER NON FARE NULLA (Blocca l'inglese)
+    \begingroup
+        % Salva l'originale
+        \let\origchapterstar\chapter* % Sostituisce \chapter* con \relax per sopprimere l'intestazione interna di \listoflistings
+        \let\chapter*\relax 
+        
+        % 3. GENERA IL CONTENUTO DELLA LISTA (senza ristampare il titolo)
+        \listoflistings 
+    \endgroup
+    \vspace*{8ex}
 \endgroup
-
 \cleardoublepage
