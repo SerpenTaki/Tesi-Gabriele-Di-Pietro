@@ -581,9 +581,101 @@ Tuttavia questa scelta espone un rischio aggiuntivo in quanto un attaccante potr
 
 
 \subsection{Gestione sicura delle chiavi pubbliche e private}
-(In questa sezione descrivo uno dei punti critici del mio progetto ovvero come recuperare la chiave privata che non viene trasmessa online e il suo trasferimento su un nuovo dispositivo in caso di smarrimento)
+La protezione delle chiavi crittografiche generate sul dispositivo dell’utente costituisce uno dei punti più delicati del progetto. L’applicazione pertanto è stata progettata per garantire il principio di controllo totale da parte dell’utente sulla chiave privata.
+\subsection{Separazione e archiviazione delle chiavi}
+Durante la creazione di un nuovo \textit{wallet}, l’applicazione chiama la classe \texttt{WalletService} esegue la creazione del nuovo \textit{wallet} generando una coppia di chiavi RSA chiamando la classe \texttt{CriptoUtils}, come scritto precedentemente. 
+\begin{listing}[H]
+  \caption{Generazione coppia di chiavi private in \texttt{wallet\_service.dart}}
+  \begin{minted}{dart}
+final keyPair = cryptoUtils.generateRSAkeyPair(cryptoUtils.getSecureRandom());
+final publicKeyObj = keyPair.publicKey as pointy.RSAPublicKey;
+final privateKeyObj = keyPair.privateKey as pointy.RSAPrivateKey;
+  \end{minted}
+\end{listing}
 
-\subsubsection{La classe \textit{Wallet}}
+A questo punto avviene le separazione delle due chiavi ricordando che la chiave privata deve essere salvata localmente sul dispositivo mentre quella pubblica deve essere trasferita insieme alle caratteristiche del \textit{wallet} sul database. 
+\newline \newline
+// Inserire Immagine
+\newline \newline
+La chiave pubblica viene inviata al \textit{database} Firestore per essere associata al \textit{wallet} dell’utente insieme ai dati di creazione quali userID, \textit{email}, nome del \textit{wallet}, i dati di scansione \textit{historical bytes} e \textit{standard}. Rendendola quindi disponibile sul \textit{database} per le operazioni di comunicazione.
+\begin{listing}[H]
+  \caption{Invio delle informazioni pubbliche del \textit{wallet} su Firebase}
+  \begin{minted}{dart}
+Map<String, dynamic> walletDataForFirestore = {
+  'userId': userId,
+  'email': email,
+  'name': tempWallet.name,
+  'hBytes': hBytes,
+  'standard': standard,
+  'color': colorString,
+  'publicKey': tempWallet.publicKey,
+  'createdAt': FieldValue.serverTimestamp(),
+};
+
+DocumentReference docRef = await _firestore.collection('wallets')
+                                  .add(walletDataForFirestore);
+  \end{minted}
+\end{listing}
+
+Per la chiave privata invece viene chiamata la classe di \texttt{SecureStorage} che utilizza la libreria di \texttt{flutter\_secure\_storage} per utilizzare il \textit{Keychain} sui dispositivi iOS o il \textit{KeyStore} per i dispositivi Android, proteggendo la chiave tramite crittografia a sistema operativo. La chiave è conservata solo per il tempo necessario al salvataggio locale sul dispositivo dopo l’operazione di scrittura il valore della chiave privata viene impostata su valore nullo assicurando che nessuna copia venga inutilmente salvata nella memoria temporanea del dispositivo.
+
+\begin{listing}[H]
+  \caption{Salvataggio della chiave privata sul dispositivo}
+  \begin{minted}{dart}
+await _secureStorage.writeSecureData(tempWallet.localKeyIdentifier,
+                     tempWallet.transientRawPrivateKey!);
+tempWallet.transientRawPrivateKey = null;
+  \end{minted}
+\end{listing}
+
+
+\subsection{La classe \texttt{SecureStorage}}
+La classe \texttt{SecureStorage} è responsabile del salvataggio, lettura ed eliminazione della chiave privata sul dispositivo locale. Possiamo immaginare il funzionamento di \texttt{SecureStorage} come una mappa o un dizionario chiave valore, garantendo quindi che la chiave venga protetta in modo robusto.
+
+\begin{listing}[H]
+  \caption{La classe \texttt{SecureStorage}}
+  \begin{minted}{dart}
+
+class SecureStorage implements ISecureStorage {
+  final FlutterSecureStorage storage;
+
+  SecureStorage({FlutterSecureStorage? storage}) : storage = storage 
+                                    ?? const FlutterSecureStorage();
+
+  @override
+  Future<void> writeSecureData(String key, String value) async {
+    await storage.write(key: key, value: value);
+  }
+
+  @override
+  Future<String?> readSecureData(String key) async {
+    final value = await storage.read(key: key);
+    return value;
+  }
+
+  @override
+  Future<void> deleteSecureData(String key) async {
+    await storage.delete(key: key);
+  }
+}
+  \end{minted}
+\end{listing}
+
+Per accedere al dato salvato localmente è quindi necessario che alla creazione della coppia di chiavi venga anche generata una terza chiave identificativa più piccola che permetta il recupero della chiave privata dal KeyStore o dal Keychain
+
+\begin{listing}[H]
+  \caption{Creazione della chiave identificativa}
+  \begin{minted}{dart}
+var uuid = const Uuid();
+final newLocalKeyIdentifier = uuid.v4();
+  \end{minted}
+\end{listing}
+
+Tramite il pacchetto \texttt{uuid} è possibile generare una chiave unica da associare alla chiave privata per permetterne il recupero. È importante sottolineare come questa chiave-identificatore possa essere memorizzata sul database in quanto non compromette la sicurezza del sistema.
+\subsection{Procedura di recupero chiave}
+Questa architettura delega all’utente la responsabilità esclusiva sulla propria chiave privata. In quanto non esiste alcun modo per rigenerarla partendo dai dati memorizzati nel \textit{database}.
+In caso di smarrimento o trasferimento da un dispositivo a un altro l’applicazione permette una procedura di recupero. Tuttavia questo richiede che l’utente esporti manualmente la chiave. 
+Al momento l’applicazione per motivi di tempo permette il recupero solo tramite inserimento di testo, tuttavia, la progettazione è stata eseguita considerando la possibilità di implementare un metodo alternativo di salvataggio della chiave privata su un \textit{tag} NFC singolo in modo tale che l’utente possa salvare in un dispositivo esterno allo \textit{smartphone}
 
 
 \section{Risultati Raggiunti}
