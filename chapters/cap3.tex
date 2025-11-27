@@ -1,5 +1,5 @@
 \chapter{Realizzazione dell'applicazione}
-\label{cap:Realizzazione dell'applicazione}
+\label{cap:realizzazione_applicazione}
 Il presente capitolo descrive la realizzazione dell'applicazione \textit{Key Wallet App} illustrando in primo luogo la fase di pianificazione e di analisi per poi proseguire verso i problemi riscontrati durante lo sviluppo, la loro mitigazione e le scelte che sono state compiute. Si conclude con un resoconto su quanto è stato realizzato.
 \section{Pianificazione del lavoro}
 Come introdotto nel capitolo 2, l’obiettivo del mio progetto era una valutazione di fattibilità e di potenziale impiego di nuove tecnologie per l’azienda in prodotti nuovi. Pertanto ho dovuto coniugare rigidità nella fase di studio e flessibilità nella fase di sviluppo e implementazione. Quindi per la realizzazione del progetto ho scelto un approccio ibrido tra un modello sequenziale a cascata durante lo studio e la pianificazione, e un modello agile per la realizzazione dell'applicazione.
@@ -43,8 +43,12 @@ Come introdotto nel capitolo 2, l’obiettivo del mio progetto era una valutazio
 Durante le prime settimane di \textit{stage}, ho applicato una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Nel primo blocco ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter, per poi spostarmi sulla libreria di \texttt{pointycastle} e sugli gli algoritmi di crittografia. Dalla terza settimana fino alla quarta mi sono concentrato sullo sviluppo di piccoli prototipi, per esempio: \textit{login} finto, generazione di chiavi alla pressione di un tasto e lettura di \textit{tag} nfc.
  Questi sono stati molto utili per effettuare \textit{test} sulle funzioni nelle settimane successive e a trovare immediatamente falle all'interno del progetto. Una fra tutte la lettura di \textit{tag} NFC, i quali
  non possiedono un identificativo fisso sulle carte d’identità elettroniche.
-\newline
-\newline
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../assets/modelloCascata.png} 
+    \caption{Copertura del codice dei \textit{test} automatici}
+\end{figure}
+
 Una volta completata la prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale.
  Lo sviluppo agile offre una gestione flessibile dei problemi tecnici e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendo di integrare funzionalità ad ogni iterazione.
   Questo significa che per le ultime fasi del progetto pianificavo, sviluppavo e testavo le funzionalità implementate, reagendo immediatamente ai problemi riscontrati, uno tra questi, l’uso di un algoritmo RSA senza \textit{padding}.
@@ -362,10 +366,11 @@ La libreria ci permette di recuperare i campi di ID, lo \textit{standard} ISO de
 \newline
 Testando l’applicazione con una varietà di documenti e \textit{tag} NFC, ho riscontrato differenze significative nella struttura dei dati restituiti. Ad esempio, la tessera del \textit{tram} di Busitalia Veneto e quella di una palestra privata rispetto a documenti come la tessera sanitaria o il \textit{badge} universitario non forniscono né includono i campi relativi agli \textit{hystorical bytes}, evidenziando quindi come il comportamento e il livello di informazione dei \textit{tag} NFC vari sensibilmente in base allo \textit{standard} impiegato e al livello di sicurezza previsto dall’emittente.
 \newline
-Nel caso della CIE ho rilevato un comportamento peculiare: il campo identificativo (\texttt{id}) letto tramite NFC non rappresenta un identificatore univoco permanente ma bensì un valore temporaneo che cambia ad ogni scansione. Approfondendo la documentazione tecnica del \textit{chip} - disponibile sul sito del ministero dell’Interno - emerge che la CIE adotta modelli di sicurezza avanzati come il protocollo BAC\footnote{aggiungi} o il protocollo PACE\footnote{aggiungi} che limitano severamente la quantità di informazioni accessibili senza autenticazione. In particolare il numero unico nazionale (\texttt{nun}) che si trova in alto a destra sul fronte del documento.
+Nel caso della CIE ho rilevato un comportamento peculiare: il campo identificativo (\texttt{id}) letto tramite NFC non rappresenta un identificatore univoco permanente, bensì un valore temporaneo che cambia a ogni scansione.
+ Approfondendo la documentazione tecnica del \textit{chip} - disponibile sul sito del Ministero dell’Interno - emerge che la CIE adotta modelli di sicurezza avanzati, come il protocollo BAC\footnote{aggiungi} o il protocollo PACE\footnote{aggiungi}, che limitano severamente la quantità di informazioni accessibili senza autenticazione. In particolare il numero unico nazionale (\texttt{nun}) che si trova in alto a destra sul fronte del documento.
 \newline
 \newline
-Il \textit{chip} della Carta d’Identità Digitale (CIE) è infatti progettato per memorizzare dati personali sensibili, proteggendole tramite una protocolli avanzati e non direttamente leggibili con una interrogazione NFC.
+Infatti il \textit{chip} della Carta d’Identità Digitale (CIE) è progettato per memorizzare dati personali sensibili e proteggerli tramite una protocolli avanzati e non direttamente leggibili con una interrogazione NFC.
 \newline
 L’identificatore temporaneo e non persistente rientra nelle misure previste per ridurre i rischi legati al tracciamento e alla profilazione utente.
 \newline
@@ -373,17 +378,17 @@ L’identificatore temporaneo e non persistente rientra nelle misure previste pe
 Questo rappresenta per il progetto un bel problema in quanto senza un identificativo del documento recuperabile tramite scansione è impossibile associare una singola chiave ad esso.
 \subsubsection{Mitigazione del problema}
 Per interagire con la Carta d’Identità Elettronica (CIE) è necessario utilizzare gli strumenti \textit{software} ufficiali messi a disposizione dall’Istituto Poligrafico e Zecca dello Stato (IPZS).
- Senza la loro implementazione, un’applicazione di terze parti può accedere solo a informazioni superficiali come quelle indicate precedentemente, senza accedere ai dati personali o ai file protetti presenti sul documento.
+ Senza la loro implementazione, un’applicazione di terze parti può accedere solo a informazioni superficiali come quelle indicate precedentemente, senza accedere ai dati personali o ai \textit{file} protetti presenti sul documento.
 \newline
 \newline
 Una prima soluzione valutata è stata quella di consultare la piattaforma dedicata agli sviluppatori che realizzano i software per la Pubblica Amministrazione (PA).
- Tra i progetti disponibili è presente anche il \textit{kit} di sviluppo ufficiale per Android, reperibile al \textit{repository}  \href{https://github.com/italia/cieid-android-sdk}{\texttt{cieid-android-sdk}} . Questo consente di integrare nei sistemi Android l’autenticazione basata su CIE, ma è stato sviluppato in Kotlin ed è compatibile esclusivamente per le applicazioni native Android, entrando in conflitto con uno dei punti fondamentali dello sviluppo di applicazioni in Flutter ovvero lo sviluppo multi-piattaforma.
+ Tra i progetti disponibili è presente anche il \textit{kit} di sviluppo ufficiale per Android, reperibile al \textit{repository}  \href{https://github.com/italia/cieid-android-sdk}{\texttt{cieid-android-sdk}}, che consente di integrare nei sistemi Android l’autenticazione basata su CIE. Tuttavia essendo sviluppato in Kotlin è compatibile esclusivamente per le applicazioni native Android ed entra in conflitto con uno dei punti fondamentali dello sviluppo di applicazioni in Flutter ovvero lo sviluppo multi-piattaforma.
 \newline
 \newline
-A seguito di riunioni interne con il mio responsabile, si è scelto di non procedere su questa strada, sia per ragioni di tempo ma anche per evitare la gestione di dati sensibili, che sarebbero soggetti alle normative del GDPR\footnote{inserire} per l’azienda. Pertanto si è deciso di utilizzare come identificativo il valore degli \textit{historical bytes}, insieme allo standard del \textit{chip} NFC rilevato durante la scansione.
+A seguito di riunioni interne con il mio responsabile, si è scelto di non procedere su questa strada, sia per ragioni di tempo sia per evitare la gestione di dati sensibili, che sarebbero soggetti alle normative del GDPR\footnote{inserire} per l’azienda. Pertanto si è deciso di utilizzare come identificativo il valore degli \textit{historical bytes}, insieme allo standard del \textit{chip} NFC rilevato durante la scansione.
 \newline
 \newline
-I documenti quali la CIE, la tessera sanitaria o le carte di credito adottano lo standard ISO/IEC 14443-4, che prevedono la presenza di \textit{historical bytes}. Sebbene questi non rappresentino un identificatore univoco in senso assoluto, risulta estremamente improbabile che due \textit{tag} diversi registrino lo stesso valore, soprattutto se appartenenti a categorie differenti.
+I documenti quali la CIE, la tessera sanitaria o le carte di credito adottano lo standard ISO/IEC 14443-4, che prevede la presenza di \textit{historical bytes}. Sebbene questi non rappresentino un identificatore univoco in senso assoluto, risulta estremamente improbabile che due \textit{tag} diversi registrino lo stesso valore, soprattutto se appartenenti a categorie differenti.
  Per ridurre ancora tale probabilità, l’applicazione esegue la verifica di unicità solo tra i documenti registrati dall’utente e non su tutti quelli presenti nel \textit{database} dell’applicazione, garantendo così un adeguato livello di affidabilità.
 
 
@@ -449,7 +454,7 @@ Future<void> _scanNfcTag() async {
 In questa sezione si espongono e si analizzano i principali algoritmi crittografici, evidenziandone il funzionamento e discutendo i rischi associati al loro impiego. Per molti esempi e descrizione degli scenari utilizzerò gli attori Alice e Bob che rappresentano due utenti generici che vogliono conversare tra di loro. 
 \newline
 \newline
-Per analizzare la comunicazione digitale è importante garantire quattro aspetti:
+Per analizzare la comunicazione digitale è importante considerare quattro aspetti:
 \begin{enumerate}
   \item \textbf{Confidenzialità}: assicurare che nessun osservatore non autorizzato sia in grado di leggere il messaggio durante la trasmissione.
   \item \textbf{Integrità}: garantire che il messaggio non sia alterato da nessuno.
@@ -468,7 +473,7 @@ Il funzionamento è descritto come segue:
 \end{enumerate}
 Pertanto per adottare questo algoritmo Alice e Bob devono conoscere e adoperare la stessa chiave utilizzando un canale di comunicazione sicuro.
 \begin{itemize}
-  \item Se la chiave venisse rubata, l’attaccante può fingersi il mittente originale.
+  \item Se la chiave venisse rubata l’attaccante può fingersi il mittente originale.
   \item Non è possibile distribuire in modo sicuro la chiave privata a un partner remoto senza utilizzare un altro sistema di sicurezza.
 \end{itemize}
 
@@ -484,12 +489,12 @@ Il funzionamento è descritto come segue.
 \end{enumerate}
 L’uso di questi algoritmi risolve il problema dello scambio della chiave presente negli algoritmi di crittografia simmetrica in quanto la condivisione della chiave pubblica sulla rete non compromette la sicurezza del sistema.
 Inoltre si garantisce l’autenticazione e l’integrità dato che è possibile verificare l’identità del mittente invertendo il processo di crittografia.
- Se il messaggio viene cifrato con la chiave privata del mittente e successivamente è possibile decifrarlo con la sua chiave pubblica corrispondente.
-  Inoltre questo ci permette di verificare che il messaggio non sia stato alterato durante la comunicazione.
+  Il messaggio viene cifrato con la chiave privata del mittente e successivamente è possibile decifrarlo con la sua chiave pubblica corrispondente.
+  Inoltre questo permette di verificare che il messaggio non sia stato alterato durante la comunicazione.
 
 \subsection{Realizzazione di una \textit{chat end-to-end}}
 Uno degli obbiettivi del progetto riguarda la generazione di coppie di chiavi pubbliche e private e il loro utilizzo per cifrare e decifrare i messaggi inseriti nell’applicazione.
-Per soddisfare questo, ho deciso di realizzare una \textit{chat end-to-end} che permetta lo scambio di messaggi tra 2 utenti della \textit{chat} mediante protocollo RSA (Rivest-Shamir-Adleman).
+Per soddisfare questo requisito, ho deciso di realizzare una \textit{chat end-to-end} che permetta lo scambio di messaggi tra 2 utenti della \textit{chat} mediante protocollo RSA (Rivest-Shamir-Adleman).
 \subsubsection{Generazione sicura delle chiavi}
 Il processo inizia con la creazione di un generatore di numeri pseudocasuali basata sul generatore \texttt{FortunaRandom}, messo a disposizione da \texttt{pointycastle}, per assicurare una adeguata fonte di entropia tale da garantire che il programma non generi coppie di chiavi con lo stesso valore numerico.
 \newline
@@ -510,7 +515,7 @@ SecureRandom getSecureRandom() {
   \end{minted}
 \end{listing}
 
-Questo generatore viene passato al metodo \texttt{generateRSAkeyPair()} responsabile della creazione delle chiavi RSA. Il generatore produce quindi una coppia di chiavi lunga 256 \textit{byte} che rappresenta la lunghezza standard delle moderne chiavi RSA.
+Questo generatore viene passato al metodo \texttt{generateRSAkeyPair()} responsabile della creazione delle chiavi RSA. Il generatore produce quindi una coppia di chiavi lunga 256 \textit{byte}, che rappresenta la lunghezza standard delle moderne chiavi RSA.
 
 \begin{listing}[H]
   \caption{Generazione della coppia di chiavi}
@@ -527,7 +532,7 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureR
   \end{minted}
 \end{listing}
 
-Per rispettare i requisiti e permettere sia allo \textit{stakeholder} di visualizzare il risultato ottenuto le chiavi sono mostrate in chiaro sull'applicazione ma in un contesto pratico questo non deve avvenire in quanto compromette la sicurezza del sistema.
+Per rispettare i requisiti e permettere allo \textit{stakeholder} di visualizzare il risultato ottenuto le chiavi sono mostrate in chiaro sull'applicazione, ma in un contesto pratico questo non deve avvenire in quanto compromette la sicurezza del sistema.
 
 \begin{figure}[H]
     \centering
@@ -595,9 +600,9 @@ L’implementazione dell’algoritmo mostrato presenta un problema specifico per
 \end{itemize}
 
 \begin{itemize}
-  \item la seconda soluzione adottata nel progetto consiste nel inviare due copie dello stesso messaggio al \textit{database}: la prima cifrata con la chiave pubblica del destinatario e la seconda cifrata con la chiave pubblica del mittente. In questo modo entrambi gli interlocutori possono recuperare la loro versione decifrabile dal \textit{database} visualizzando i messaggi in chiaro.
+  \item la seconda soluzione adottata nel progetto consiste nell'invio di due copie dello stesso messaggio al \textit{database}: la prima cifrata con la chiave pubblica del destinatario e la seconda cifrata con la chiave pubblica del mittente. In questo modo entrambi gli interlocutori possono recuperare la loro versione decifrabile dal \textit{database} visualizzando i messaggi in chiaro.
 \end{itemize}
-Tuttavia questa scelta espone un rischio aggiuntivo in quanto un attaccante potrebbe individuare nel \textit{database} due messaggi identici ma cifrati con chiavi differenti mettendo il sistema a rischio. Per ridurre questa possibilità ho introdotto lo schema di \textit{padding} OAEP\footnote{Inserire} all’algoritmo RSA che introduce casualità e rende impossibile ottenere due testi cifrati uguali dallo stesso messaggio.
+Tuttavia questa scelta espone a un rischio aggiuntivo con: un attaccante potrebbe individuare nel \textit{database} due messaggi identici ma cifrati con chiavi differenti, mettendo il sistema a rischio. Per ridurre questa possibilità ho introdotto lo schema di \textit{padding} OAEP\footnote{Inserire} all’algoritmo RSA che introduce casualità e rende impossibile ottenere due testi cifrati uguali dallo stesso messaggio.
 
 \begin{listing}[H]
   \caption{Modifica agli algoritmi di codifica e decodifica aggiungendo OAEP}
@@ -619,8 +624,8 @@ Tuttavia questa scelta espone un rischio aggiuntivo in quanto un attaccante potr
 
 \subsection{Gestione sicura delle chiavi pubbliche e private}
 La protezione delle chiavi crittografiche generate sul dispositivo dell’utente costituisce uno dei punti più delicati del progetto. L’applicazione pertanto è stata progettata per garantire il principio di controllo totale da parte dell’utente sulla chiave privata.
-\subsection{Separazione e archiviazione delle chiavi}
-Durante la creazione di un nuovo \textit{wallet}, l’applicazione chiama la classe \texttt{WalletService} esegue la creazione del nuovo \textit{wallet} generando una coppia di chiavi RSA chiamando la classe \texttt{CriptoUtils}, come scritto precedentemente. 
+\subsubsection{Separazione e archiviazione delle chiavi}
+Durante la creazione di un nuovo \textit{wallet}, l’applicazione chiama la classe \texttt{WalletService} ed esegue la creazione del nuovo \textit{wallet} generando una coppia di chiavi RSA chiamando la classe \texttt{CriptoUtils}, come scritto precedentemente. 
 \begin{listing}[H]
   \caption{Generazione coppia di chiavi private in \texttt{wallet\_service.dart}}
   \begin{minted}{dart}
@@ -630,11 +635,12 @@ final privateKeyObj = keyPair.privateKey as pointy.RSAPrivateKey;
   \end{minted}
 \end{listing}
 
-A questo punto avviene le separazione delle due chiavi ricordando che la chiave privata deve essere salvata localmente sul dispositivo mentre quella pubblica deve essere trasferita insieme alle caratteristiche del \textit{wallet} sul database. 
+A questo punto avviene le separazione delle due chiavi, tenendo presente che la chiave privata deve essere salvata localmente sul dispositivo mentre quella pubblica deve essere trasferita insieme alle caratteristiche del \textit{wallet} sul database. 
 \newline \newline
 // Inserire Immagine
 \newline \newline
-La chiave pubblica viene inviata al \textit{database} Firestore per essere associata al \textit{wallet} dell’utente insieme ai dati di creazione quali userID, \textit{email}, nome del \textit{wallet}, i dati di scansione \textit{historical bytes} e \textit{standard}. Rendendola quindi disponibile sul \textit{database} per le operazioni di comunicazione.
+La chiave pubblica viene inviata al \textit{database} Firestore per essere associata al \textit{wallet} dell’utente insieme ai dati di creazione quali userID, \textit{email}, nome del \textit{wallet}, i dati di scansione \textit{historical bytes} e \textit{standard}.
+  Quindi è resa disponibile sul \textit{database} per le operazioni di comunicazione.
 \begin{listing}[H]
   \caption{Invio delle informazioni pubbliche del \textit{wallet} su Firebase}
   \begin{minted}{dart}
@@ -654,7 +660,8 @@ DocumentReference docRef = await _firestore.collection('wallets')
   \end{minted}
 \end{listing}
 
-Per la chiave privata invece viene chiamata la classe di \texttt{SecureStorage} che utilizza la libreria di \texttt{flutter\_secure\_storage} per utilizzare il \textit{Keychain} sui dispositivi iOS o il \textit{KeyStore} per i dispositivi Android, proteggendo la chiave tramite crittografia a sistema operativo. La chiave è conservata solo per il tempo necessario al salvataggio locale sul dispositivo dopo l’operazione di scrittura il valore della chiave privata viene impostata su valore nullo assicurando che nessuna copia venga inutilmente salvata nella memoria temporanea del dispositivo.
+Invece, per la chiave privata viene chiamata la classe di \texttt{SecureStorage} che utilizza la libreria di \texttt{flutter\_secure\_storage} per utilizzare il \textit{Keychain} sui dispositivi iOS o il \textit{KeyStore} per i dispositivi Android, proteggendo la chiave tramite crittografia a sistema operativo.
+ La chiave è conservata solo per il tempo necessario al salvataggio locale sul dispositivo. Dopo l’operazione di scrittura il valore della chiave privata viene impostata su valore nullo assicurando che nessuna copia venga inutilmente salvata nella memoria temporanea del dispositivo.
 
 \begin{listing}[H]
   \caption{Salvataggio della chiave privata sul dispositivo}
@@ -666,8 +673,9 @@ tempWallet.transientRawPrivateKey = null;
 \end{listing}
 
 
-\subsection{La classe \texttt{SecureStorage}}
-La classe \texttt{SecureStorage} è responsabile del salvataggio, lettura ed eliminazione della chiave privata sul dispositivo locale. Possiamo immaginare il funzionamento di \texttt{SecureStorage} come una mappa o un dizionario chiave valore, garantendo quindi che la chiave venga protetta in modo robusto.
+\subsubsection{La classe \texttt{SecureStorage}}
+La classe \texttt{SecureStorage} è responsabile del salvataggio, lettura ed eliminazione della chiave privata sul dispositivo locale.
+ Possiamo immaginare il funzionamento di \texttt{SecureStorage} come una mappa o un dizionario chiave valore, in grado di garantire che la chiave venga protetta in modo robusto.
 
 \begin{listing}[H]
   \caption{La classe \texttt{SecureStorage}}
@@ -709,14 +717,83 @@ final newLocalKeyIdentifier = uuid.v4();
 \end{listing}
 
 Tramite il pacchetto \texttt{uuid} è possibile generare una chiave unica da associare alla chiave privata per permetterne il recupero. È importante sottolineare come questa chiave-identificatore possa essere memorizzata sul \textit{database} in quanto non compromette la sicurezza del sistema.
-\subsection{Procedura di recupero chiave}
-Questa architettura delega all’utente la responsabilità esclusiva sulla propria chiave privata. In quanto non esiste alcun modo per rigenerarla partendo dai dati memorizzati nel \textit{database}.
+
+\subsubsection{Procedura di recupero chiave}
+Questa architettura delega all’utente la responsabilità esclusiva sulla propria chiave privata, in quanto non esiste alcun modo per rigenerarla partendo dai dati memorizzati nel \textit{database}.
 In caso di smarrimento o trasferimento da un dispositivo a un altro l’applicazione permette una procedura di recupero. Tuttavia questo richiede che l’utente esporti manualmente la chiave. 
-Al momento l’applicazione per motivi di tempo permette il recupero solo tramite inserimento di testo, tuttavia, la progettazione è stata eseguita considerando la possibilità di implementare un metodo alternativo di salvataggio della chiave privata su un \textit{tag} NFC singolo in modo tale che l’utente possa salvare in un dispositivo esterno allo \textit{smartphone}
+Per ragioni di tempo, al momento l'applicazione permette il recupero solo tramite inserimento di testo. Tuttavia, la progettazione è stata eseguita considerando la possibilità di implementare un metodo alternativo di salvataggio della chiave privata su un \textit{tag} NFC singolo in modo tale che l’utente possa salvare in un dispositivo esterno allo \textit{smartphone}
 
 
 \section{Risultati Raggiunti}
-(in questa sezione parlo dei risultati e raggiunti, delle funzioni implementate nell'applicazione come ad esempio la ricerca, la conversazione, e come le chiavi sono state associate ai documenti)
-..
-\subsection{Risultati quantitativi}
-\subsection{Risultati qualitativi}
+
+L’applicazione progettata e sviluppata durante il percorso di \textit{stage} implementa tutte le principali funzionalità previste dai requisiti funzionali, oltre ad alcune aggiuntive volte a migliorare l’esperienza utente.  
+Il prodotto finale consente la gestione sicura di chiavi crittografiche asimmetriche, l’associazione di documenti mediante tecnologia NFC e l’invio e ricezione di messaggi cifrati tramite un sistema di \textit{chat end-to-end}.
+
+\subsubsection*{Funzionalità Implementate}
+\begin{itemize}
+    \item \textbf{Accesso e registrazione}: l’utente può creare un account e accedere all’applicazione tramite l'inserimento di \textit{email} e \textit{password}. Il sistema di autenticazione sfrutta un \textit{database} remoto per la gestione degli utenti.
+    
+    \item \textbf{Creazione ed eliminazione del \textit{wallet}}: un utente può generare la propria coppia di chiavi crittografiche e, se necessario, eliminarle sia dal \textit{database} locale sia da quello remoto.
+    
+    \item \textbf{Rimozione della chiave privata dal dispositivo}: è stata introdotta la possibilità di rimuovere la chiave privata dal dispositivo, permettendone il salvataggio in uno spazio alternativo esterno al \textit{Keystore/Keychain}.
+    
+    \item \textbf{Recupero del \textit{wallet}}: l’utente può ripristinare il proprio \textit{wallet} in caso di smarrimento del dispositivo o migrazione verso uno nuovo, tramite reinserimento della chiave privata precedentemente esportata.
+    
+    \item \textbf{\textit{Chat end-to-end}}: l’applicazione mette a disposizione un servizio di messaggistica sicura basato su chiavi crittografiche RSA.
+    
+    \item \textbf{Ricerca tramite \textit{email}}: l’utente può individuare un altro utente tramite ricerca per indirizzo \textit{email} e avviare con esso una conversazione sicura.
+    
+    \item \textbf{Ricerca tramite scansione NFC}: attraverso scansione NFC di un documento fisico, l’applicazione può identificare automaticamente l’utente associato e avviare una nuova interazione.
+\end{itemize}
+
+\subsection{Risultati Quantitativi}
+
+Per valutare in maniera oggettiva la portata del progetto, è stata condotta un’analisi quantitativa del codice prodotto.  
+L’intero lavoro di sviluppo ha portato alla realizzazione di una base di codice strutturata come riportato nella tabella seguente:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Metrica} & \textbf{Valore} \\
+        \hline
+        Numero di \textit{file} sorgenti & 95 \\
+        \hline
+        Righe di codice & 12916 \\
+        \hline
+        Righe di commento & 800 \\
+        \hline
+    \end{tabular}
+    \caption{Dati relativi all'implementazione}
+\end{table}
+
+La quantità significativa sia del numero di \textit{file} sia delle linee di codice effettive
+ è principalmente dovuta alla separazione modulare dei \textit{widget} utilizzati per la progettazione delle schermate.
+  Il \textit{framework} inoltre tende ad essere particolarmente verboso: anche un singolo \textit{file} può facilmente superare le 150 righe di codice, soprattutto quando si pensa allo sviluppo multipiattaforma e si producono diversi \textit{dialog} scelti per i vari sistemi operativi.
+
+\subsection{Risultati Qualitativi}
+
+All’inizio dello sviluppo sono stati definiti i requisiti di qualità che il sistema finale avrebbe dovuto rispettare.  
+I risultati sono stati verificati attraverso lo sviluppo di \textit{test} automatici e dal raggiungimento della copertura del codice. 
+
+\begin{itemize}
+  \item \textbf{Il requisito RQ1} mirava a garantire l'affidabilità di generazione e coerenza delle chiavi con una soglia minima del $95\%$. Per la verifica è stato sviluppato un test di unità che attraverso 100 cicli di generazione e modifica ha verificato la corretta associazione tra chiave pubblica e privata, e la loro unicità delle coppie sfruttando l'elevata entropia del generatore \texttt{FortunaRandom}.
+  \item \textbf{Il requisito RQ2} stabiliva una soglia di generazione massima di 2 secondi per l'operazione di un nuovo \textit{wallet} che include la generazione della coppia RSA. Per verificare questo è stato implementato un test di integrazione che cronometrasse l'esecuzione della funzione \texttt{Wallet.generateNew}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../assets/testFunzionele.png} 
+    \caption{Misurazione per RQ2}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{Il requisito RQ3} imponeva il raggiungimento di una copertura di \textit{test} automatici del $70\%$. L'attività di \textit{test} ha coperto l'intera logica di \textit{frontend} e \textit{backend} con il raggiungimento di una copertura complessiva dell'$80\%$
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../assets/testAutomatici.png} 
+    \caption{Copertura del codice dei \textit{test} automatici}
+\end{figure}
+
