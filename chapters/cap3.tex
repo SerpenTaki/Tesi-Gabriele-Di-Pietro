@@ -40,20 +40,26 @@ Come introdotto nel capitolo 2, l’obiettivo del mio progetto era una valutazio
     \caption{Pianificazione del lavoro durante le 8 settimane}
 \end{table}
 
-Durante le prime settimane di \textit{stage}, ho applicato una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Nel primo blocco ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter, per poi spostarmi sulla libreria di \texttt{pointycastle} e sugli gli algoritmi di crittografia. Dalla terza settimana fino alla quarta mi sono concentrato sullo sviluppo di piccoli prototipi, per esempio: \textit{login} finto, generazione di chiavi alla pressione di un tasto e lettura di \textit{tag} nfc.
+Durante le prime settimane di \textit{stage}, ho applicato una metodologia a cascata, essenziale per stabilire le fondamenta del progetto. Nel primo blocco ho lavorato a stretto contatto con il mio responsabile per definire gli obiettivi e la struttura del progetto. Dopodiché mi sono concentrato sullo studio del linguaggio Dart e del framework Flutter, per poi spostarmi sulla libreria di \texttt{pointycastle} e sugli gli algoritmi di crittografia. Dalla terza settimana fino alla quarta mi sono concentrato sullo sviluppo di piccoli prototipi, per esempio: \textit{login} finto, generazione di chiavi alla pressione di un tasto e lettura di \textit{tag} NFC.
  Questi sono stati molto utili per effettuare \textit{test} sulle funzioni nelle settimane successive e a trovare immediatamente falle all'interno del progetto. Una fra tutte la lettura di \textit{tag} NFC, i quali
  non possiedono un identificativo fisso sulle carte d’identità elettroniche.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../assets/modelloCascata.png} 
-    \caption{Copertura del codice dei \textit{test} automatici}
+    \includegraphics[width=0.7\textwidth]{../assets/modelloCascata.png} 
+    \caption{Modello a cascata - Fonte: programmingacademy.it}
 \end{figure}
 
 Una volta completata la prototipazione, il progetto è transitato verso una metodologia agile, in particolare durante la realizzazione dell’applicazione finale.
  Lo sviluppo agile offre una gestione flessibile dei problemi tecnici e la possibilità di concentrarsi in modo progressivo sull’implementazione dei singoli componenti del sistema, permettendo di integrare funzionalità ad ogni iterazione.
   Questo significa che per le ultime fasi del progetto pianificavo, sviluppavo e testavo le funzionalità implementate, reagendo immediatamente ai problemi riscontrati, uno tra questi, l’uso di un algoritmo RSA senza \textit{padding}.
-\newline
-\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{../assets/agile.png} 
+    \caption{Modello agile - Fonte: smartsheet.com}
+\end{figure}
+
 In definitiva, l’adozione dell’approccio ibrido ha garantito la copertura formativa e analitica iniziale, consentendo al contempo la gestione flessibile e sicura delle complessità tecniche emerse durante lo sviluppo.
 
 
@@ -64,7 +70,6 @@ La fase di analisi svolta durante le prime settimane del percorso di \textit{sta
    Le diverse iterazioni hanno permesso di delineare le linee guida e velocizzare le scelte tecnologiche, ad esempio l’uso di librerie specifiche come \texttt{pointycastle} per la crittografia o \texttt{flutter\_secure\_storage} per la gestione locale della chiave privata.
     A seguito di queste indicazioni durante la fase di analisi mi sono focalizzato sullo studio di fattibilità delle tecnologie e sullo sviluppo di prototipi. 
 
-\newpage
 
 \subsection{Requisiti funzionali}
 I requisiti funzionali definiscono le funzionalità e i servizi specifici che l’applicazione deve fornire per conseguire gli obiettivi del progetto.
@@ -200,12 +205,15 @@ void main() {
 \end{minted}
 \end{listing}
 
+\newpage
+
 \subsubsection*{Interfacce e classi astratte}
 In Dart sia le interfacce esplicite che le classi astratte sono dichiarate usando la \textit{keyword} \texttt{abstract class}.
 La distinzione dei due concetti risiede nel modo in cui vengono utilizzate le classi derivate:
-
-Un’interfaccia definisce un contratto: qualsiasi classe che la derivi deve utilizzare la \textit{keyword} \texttt{implements}, impegnandosi pertanto a fornire una implementazione concreta di tutti i metodi dichiarati.
- Al contempo, una classe astratta può essere estesa tramite la \textit{keyword} \texttt{extends} e può contenere sia i metodi astratti sia metodi già implementati. 
+\begin{itemize}
+  \item Un’interfaccia definisce un contratto: qualsiasi classe che la derivi deve utilizzare la \textit{keyword} \texttt{implements}, impegnandosi pertanto a fornire una implementazione concreta di tutti i metodi dichiarati.
+  \item Una classe astratta può essere estesa tramite la \textit{keyword} \texttt{extends} e può contenere sia i metodi astratti sia metodi già implementati. 
+\end{itemize}
 
 \begin{listing}[H]
 \caption{Esempio di interfaccia e classe astratta}
@@ -241,6 +249,8 @@ class HomePage extends BaseScreen {
 \end{listing}
 In Dart, ogni classe definita genera implicitamente una interfaccia che include tutti i suoi metodi e proprietà pubbliche.
 
+\newpage
+
 \subsection{Il \textit{framework} Flutter}
 
 La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non utilizza componenti di interfaccia nativi del sistema operativo ospite,
@@ -248,8 +258,13 @@ La seconda sfida è stata lo studio del \textit{framework} Flutter. Flutter non 
   garantendo un controllo totale sul \textit{rendering} dell’interfaccia e prestazioni comparabili
    a quelle delle applicazioni native. 
 Sfruttando il linguaggio Dart, Flutter supporta funzioni specifiche che permettono al programmatore di velocizzare lo sviluppo. Una di queste funzioni è l'\textit{hot-reload} che permette di visualizzare immediatamente le modifiche al codice senza dover aspettare ogni volta una nuova compilazione.
-\newline
-\newline
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.57\textwidth]{../assets/flutterWidgets.png} 
+    \caption{Composizione dei \textit{widget} - Fonte: docs.flutter.dev}
+\end{figure}
+
 Per lavorare bene in Flutter è fondamentale comprendere che ogni elemento dell’interfaccia è rappresentato da un \textit{widget}.
  Il \textit{framework} adotta un approccio basato sulla composizione, tutto dagli elementi più semplici ai \textit{layout} più complessi è costruito tramite \textit{widget} annidati tra loro.
   Per fare un esempio banale, una schermata tipica in Flutter è definita attraverso il \textit{widget} \texttt{Scaffold} che fornisce la struttura di base dell’interfaccia.
@@ -312,33 +327,39 @@ class _ContatoreState extends State<Contatore> {
   \end{minted}
 \end{listing}
 
+\newpage
+
 \subsection{Architettura a tre livelli}
 L’applicazione sviluppata adotta il modello di architettura a tre livelli, una struttura che segmenta i componenti \textit{software} in strati logicamente distinti, ciascuno con responsabilità differenti e ben definite.
-\newline
-\newline
-Il primo livello di presentazione rappresenta un punto di interazione tra l’utente e il sistema. È composto da tutto ciò che definisce l’interfaccia grafica, quindi le schermate e \textit{widget} che le compongono. La sua funzione è quella di presentare i dati in chiaro e raccogliere l’\textit{input} dell’utente.
-\newline
-\newline
-Il secondo livello rappresenta la logica di \textit{business}: coordina le operazioni tra il livello di presentazione e il livello dei dati. Nel mio caso specifico è responsabile di operazioni fondamentali come la generazione delle chiavi crittografiche e l’esecuzione dei processi di cifratura e decifratura.
-\newline
-\newline
-Il terzo livello è responsabile della persistenza e recupero dei dati. Definisce come questi vengono archiviati e resi disponibili agli altri livelli.
+
+\begin{itemize}
+  \item Il primo livello di presentazione rappresenta un punto di interazione tra l’utente e il sistema. È composto da tutto ciò che definisce l’interfaccia grafica, quindi le schermate e \textit{widget} che le compongono. La sua funzione è quella di presentare i dati in chiaro e raccogliere l’\textit{input} dell’utente.
+  \item Il secondo livello rappresenta la logica di \textit{business}: coordina le operazioni tra il livello di presentazione e il livello dei dati. Nel mio caso specifico è responsabile di operazioni fondamentali come la generazione delle chiavi crittografiche e l’esecuzione dei processi di cifratura e decifratura.
+  \item Il terzo livello è responsabile della persistenza e recupero dei dati. Definisce come questi vengono archiviati e resi disponibili agli altri livelli.
+\end{itemize}
 
 \subsection{Il \textit{design pattern provider}}
 Per gestire lo stato dei \textit{widget} nell’applicazione realizzata è stato adottato il \textit{design pattern provider}
  poiché si allinea perfettamente alle esigenze di una architettura a tre livelli in quanto:
 \begin{enumerate}
-  \item Permette la separazione delle responsabilità (SoC\footnote{Separation of Concerns}) eliminando la necessità di propagare le informazioni tramite la gerarchia dei \textit{widget}.
+  \item Permette la separazione delle responsabilità (SoC\footnote{Separation of Concerns è un principio di progettazione che suddivide un sistema in moduli distinti, ciascuno responsabile di una specifica funzione.}) eliminando la necessità di propagare le informazioni tramite la gerarchia dei \textit{widget}.
   \item Aumenta le \textit{performance} consentendoci di costruire i \textit{widget} strettamente necessari quando lo stato cambia, evitando i \textit{rebuild} di intere porzioni dell’interfaccia.
   \item Fornisce un meccanismo per accedere e aggiornare lo stato rendendo il codice più facile da mantenere, facilitando quindi l’introduzione di funzionalità o la modifica di quelle esistenti.
 \end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../assets/providerPattern.png} 
+    \caption{Architettura a tre livelli}
+\end{figure}
+
 
 \subsection{la tecnologia NFC}
 La tecnologia NFC permette a due dispositivi di connettersi, 
 scambiarsi informazioni o attivare funzioni nel momento in cui si trovano a una distanza ravvicinata.
  Depositato da Charles Walton nel 1983, NFC nasce nel 2002 grazie all’intenzione di Sony e Philips
   di cooperare nella creazione di uno \textit{standard} per la comunicazione a radiofrequenza
-   e L’ISO\footnote{International Standard Organization} lo approva come \textit{standard} solo nel 2003.
+   e L’ISO\footnote{International Standard Organization è un organismo internazionale che sviluppa e pubblica standard volontari coprendo una vasta gamma di settori} lo approva come \textit{standard} solo nel 2003.
     L’idea è quella di integrare informazioni all’interno dei dispositivi mobili tramite una semplice iterazione tra documenti e telefoni. 
 
 \subsubsection{Lettura dati nei \textit{chip} RFID}
@@ -732,17 +753,11 @@ Il prodotto finale consente la gestione sicura di chiavi crittografiche asimmetr
 \subsubsection*{Funzionalità Implementate}
 \begin{itemize}
     \item \textbf{Accesso e registrazione}: l’utente può creare un account e accedere all’applicazione tramite l'inserimento di \textit{email} e \textit{password}. Il sistema di autenticazione sfrutta un \textit{database} remoto per la gestione degli utenti.
-    
     \item \textbf{Creazione ed eliminazione del \textit{wallet}}: un utente può generare la propria coppia di chiavi crittografiche e, se necessario, eliminarle sia dal \textit{database} locale sia da quello remoto.
-    
     \item \textbf{Rimozione della chiave privata dal dispositivo}: è stata introdotta la possibilità di rimuovere la chiave privata dal dispositivo, permettendone il salvataggio in uno spazio alternativo esterno al \textit{Keystore/Keychain}.
-    
     \item \textbf{Recupero del \textit{wallet}}: l’utente può ripristinare il proprio \textit{wallet} in caso di smarrimento del dispositivo o migrazione verso uno nuovo, tramite reinserimento della chiave privata precedentemente esportata.
-    
     \item \textbf{\textit{Chat end-to-end}}: l’applicazione mette a disposizione un servizio di messaggistica sicura basato su chiavi crittografiche RSA.
-    
     \item \textbf{Ricerca tramite \textit{email}}: l’utente può individuare un altro utente tramite ricerca per indirizzo \textit{email} e avviare con esso una conversazione sicura.
-    
     \item \textbf{Ricerca tramite scansione NFC}: attraverso scansione NFC di un documento fisico, l’applicazione può identificare automaticamente l’utente associato e avviare una nuova interazione.
 \end{itemize}
 
